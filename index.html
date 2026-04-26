@@ -1,121 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Prem Raj Joshi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Prem Raj Joshi</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+<!-- Icons (Font Awesome CDN) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        /* HEADER */
-        .header {
-            position: sticky;
-            top: 0;
-            background: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 1000;
-            transition: 0.3s;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
-        .header.scrolled {
-            padding: 5px 20px;
-        }
+/* HEADER */
+.header {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: 0.3s;
+}
 
-        .left {
-            line-height: 1.2;
-        }
+.header.scrolled {
+    padding: 5px 20px;
+}
 
-        .name-top {
-            font-size: 18px;
-        }
+.left {
+    line-height: 1.2;
+}
 
-        .name-main {
-            font-size: 14px;
-            font-weight: bold;
-        }
+.name-top {
+    font-size: 18px;
+}
 
-        /* NAV */
-        .nav {
-            display: flex;
-            align-items: center;
-        }
+.name-main {
+    font-size: 14px;
+    font-weight: bold;
+}
 
-        .nav a {
-            margin: 0 8px;
-            text-decoration: none;
-            color: black;
-            font-weight: 500;
-        }
+/* NAV */
+.nav {
+    display: flex;
+    align-items: center;
+}
 
-        .nav a:hover {
-            color: blue;
-        }
+.nav a {
+    margin: 0 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
 
-        /* SOCIAL */
-        .social {
-            margin-left: 10px;
-        }
+.nav a:hover {
+    color: #007bff;
+}
 
-        .social a {
-            margin-left: 5px;
-            font-size: 12px;
-        }
+/* SOCIAL ICONS */
+.social {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
 
-        /* DATE TIME */
-        .datetime {
-            margin-left: 10px;
-            font-size: 12px;
-            color: gray;
-        }
+.social a {
+    margin-left: 8px;
+    color: black;
+    font-size: 16px;
+    transition: 0.3s;
+}
 
-        /* MENU ICON */
-        .menu-toggle {
-            display: none;
-            font-size: 22px;
-            cursor: pointer;
-        }
+.social a:hover {
+    color: #007bff;
+}
 
-        /* MOBILE */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
+/* DATE TIME */
+.datetime {
+    margin-left: 12px;
+    font-size: 12px;
+    color: gray;
+    text-align: right;
+}
 
-            .nav {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                right: 0;
-                top: 60px;
-                background: white;
-                width: 220px;
-                padding: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }
+/* MENU ICON */
+.menu-toggle {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+}
 
-            .nav.active {
-                display: flex;
-            }
-        }
+/* MOBILE */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
 
-        /* PAGE CONTENT */
-        section {
-            padding: 60px 20px;
-        }
-    </style>
+    .nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        right: 0;
+        top: 60px;
+        background: white;
+        width: 240px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .datetime {
+        text-align: left;
+        margin-top: 10px;
+    }
+}
+
+/* CONTENT */
+section {
+    padding: 60px 20px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header" id="header">
 
     <div class="left">
@@ -130,61 +146,59 @@
         <a href="#">About</a>
         <a href="#">Portfolio</a>
         <a href="#">Services</a>
-        <a href="#">Tools</a>
+        <a href="#">Gallery</a>
         <a href="#">Blog</a>
         <a href="#">Contact</a>
 
+        <!-- SOCIAL ICONS -->
         <div class="social">
-            <a href="https://facebook.com" target="_blank">Facebook</a>
-            <a href="https://instagram.com" target="_blank">Insta</a>
-            <a href="https://tiktok.com" target="_blank">TikTok</a>
-            <a href="https://twitter.com" target="_blank">Twitter</a>
-            <a href="https://youtube.com" target="_blank">YouTube</a>
+            <a href="https://www.facebook.com/share/17TLFwFPH1/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@prejo11" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://x.com/PRJtweets2090" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
 
-        <div class="datetime" id="datetime"></div>
+        <!-- NEPALI DATE TIME -->
+        <div class="datetime">
+            <div id="nepaliDate"></div>
+            <div id="time"></div>
+        </div>
     </nav>
 
 </header>
 
-<!-- SAMPLE CONTENT (so you can scroll) -->
-<section>
-    <h2>Home</h2>
-    <p>Welcome to your website.</p>
-</section>
+<!-- SAMPLE CONTENT -->
+<section><h2>Home</h2></section>
+<section><h2>About</h2></section>
+<section><h2>Services</h2></section>
+<section><h2>Contact</h2></section>
 
-<section>
-    <h2>About</h2>
-    <p>Write about yourself here.</p>
-</section>
-
-<section>
-    <h2>Services</h2>
-    <p>Your services here.</p>
-</section>
-
-<section>
-    <h2>Contact</h2>
-    <p>Your contact details.</p>
-</section>
-
-<!-- JAVASCRIPT -->
 <script>
+// Toggle Menu
 function toggleMenu() {
     document.getElementById("navMenu").classList.toggle("active");
 }
 
-// Shrink header on scroll
+// Scroll Effect
 window.addEventListener("scroll", function() {
     document.getElementById("header")
         .classList.toggle("scrolled", window.scrollY > 50);
 });
 
-// Live Date & Time
+// Time (Nepal time)
 function updateTime() {
     const now = new Date();
-    document.getElementById("datetime").innerText =
-        now.toLocaleString();
+
+    document.getElementById("time").innerText =
+        now.toLocaleTimeString();
+
+    document.getElementById("nepaliDate").innerText =
+        now.toLocaleDateString("en-NP", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
 }
 
 setInterval(updateTime, 1000);
