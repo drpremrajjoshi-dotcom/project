@@ -50,7 +50,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; }
-        .ig-link-popup { color: #ff0000; text-decoration: none; font-weight: bold; }
 
         /* --- HEADER --- */
         .header {
@@ -70,7 +69,7 @@
         
         .datetime-container { margin-left: 20px; font-size: 12px; color: #004a99; font-weight: bold; text-align: right; }
 
-        /* --- CHATBOT MSG SYMBOL --- */
+        /* --- CHATBOT SYMBOL --- */
         .chat-bot {
             position: fixed; bottom: 30px; right: 30px;
             background: white; border: 2px solid #007bff;
@@ -82,40 +81,27 @@
         .chat-bot i { font-size: 22px; color: #007bff; }
         .chat-bot span { font-size: 10px; font-weight: bold; color: #333; }
 
-        /* --- SECTION 1: HOME GALLERY --- */
+        /* --- SECTION 1: HOME --- */
         #home { background: #000; padding: 0; }
-        .slider-wrapper {
-            width: 100%; height: 100%;
-            background: url('https://via.placeholder.com/1920x1080/222/fff?text=Photo+Sliding+Every+10s') no-repeat center center/cover;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .slider-wrapper { width: 100%; height: 100%; background: #222; display: flex; align-items: center; justify-content: center; }
 
-        /* --- SECTION 2: ABOUT ME --- */
+        /* --- SECTION 2: ABOUT --- */
         #about { background: #ffffff; flex-direction: row; gap: 60px; padding: 0 10%; }
         .about-content { flex: 1; text-align: left; }
-        .about-content h2 { font-size: 36px; color: #007bff; }
-        .about-photo-circle { 
-            width: 350px; height: 350px; 
-            border-radius: 50%; border: 8px solid #007bff; 
-            overflow: hidden; flex-shrink: 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+        .about-photo-circle { width: 350px; height: 350px; border-radius: 50%; border: 8px solid #007bff; overflow: hidden; flex-shrink: 0; }
         .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
         .read-more-btn { margin-top: 20px; padding: 12px 30px; background: #007bff; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
 
-        /* --- SECTION 3 & 4: JOURNEY & EXPERIENCE --- */
+        /* --- EMPTY SPACES FOR JOURNEY & WORK --- */
         #education { background: #F3E5F5; }
         #work { background: #E1F5FE; }
-        
-        .grid-layout { display: flex; justify-content: center; gap: 25px; width: 90%; }
-        .tall-card { 
-            background: white; width: 260px; border-radius: 12px; 
-            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            transition: transform 0.3s;
+        .empty-grid { display: flex; justify-content: center; gap: 25px; width: 90%; }
+        .empty-card { 
+            width: 260px; height: 450px; 
+            background: rgba(255, 255, 255, 0.4); /* Transparent look for empty space */
+            border: 2px dashed #999; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
         }
-        .tall-card:hover { transform: translateY(-10px); }
-        .tall-card img { width: 100%; height: 400px; object-fit: cover; background: #ccc; }
-        .tall-card p { padding: 15px; font-weight: bold; text-align: center; margin: 0; color: #444; }
 
         /* --- SECTION 5: FEEDS & FOOTER --- */
         #feeds-footer { 
@@ -132,27 +118,14 @@
         }
         .feed-header { background: #f4f4f4; padding: 10px; text-align: center; font-weight: bold; border-bottom: 1px solid #333; }
 
-        /* --- BLACK & WHITE FOOTER --- */
-        .footer-black {
-            background: #111; color: white; width: 100%; padding: 25px;
-            text-align: center; margin-top: 20px;
-        }
+        /* --- FOOTER --- */
+        .footer-black { background: #111; color: white; width: 100%; padding: 25px; text-align: center; }
         .footer-links a { color: #bbb; margin: 0 15px; text-decoration: none; font-size: 14px; }
-        .footer-links a:hover { color: white; }
 
-        /* --- CONTACT PANEL --- */
         #contactPanel {
             display: none; position: fixed; bottom: 105px; right: 30px;
             width: 300px; background: white; border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1001; padding: 25px;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            #about { flex-direction: column-reverse; text-align: center; gap: 30px; padding: 100px 20px; }
-            .feeds-container { flex-direction: column; overflow-y: auto; height: auto; }
-            .feed-item { width: 95%; height: 400px; margin-bottom: 15px; }
-            section { height: auto; min-height: 100vh; }
         }
     </style>
 </head>
@@ -166,10 +139,8 @@
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Notice</h2>
             <p>Hello, wonderful supporter!</p>
-            <p>Please note that this site is currently under construction.</p>
-            <p>You Can Contact Us on <br>
-               <a href="https://www.instagram.com/the_prem.rajj" target="_blank" class="ig-link-popup" style="color:red">Instagram</a> <br>
-            </p>
+            <p>The site is under construction.</p>
+            <p><a href="https://www.instagram.com/the_prem.rajj" target="_blank" style="color:red; text-decoration:none; font-weight:bold;">Instagram</a></p>
         </div>
     </div>
 
@@ -184,7 +155,7 @@
             <a href="#about">About</a>
             <a href="#education">Journey</a>
             <a href="#work">Experience</a>
-            <a href="#feeds-footer">Contact</a>
+            <a href="#blog">Blog</a> <a href="#feeds-footer">Contact</a>
             <div class="datetime-container">
                 <div id="nepali-date">2083-01-13</div>
                 <div id="nepali-time">00:00:00</div>
@@ -198,20 +169,22 @@
     </div>
 
     <div id="contactPanel">
-        <h3 style="margin-top:0; color:#007bff;">Contact Dr. Joshi</h3>
-        <p><i class="fas fa-phone"></i> +977 9868827191</p>
-        <p><i class="fab fa-instagram"></i> @the_prem.rajj</p>
-        <button onclick="toggleContact()" class="read-more-btn" style="width:100%; border-radius:5px;">Close</button>
+        <h3>Contact Dr. Joshi</h3>
+        <p>+977 9868827191</p>
+        <p>@the_prem.rajj</p>
+        <button onclick="toggleContact()" class="read-more-btn" style="width:100%;">Close</button>
     </div>
 
     <section id="home">
-        <div class="slider-wrapper"></div>
+        <div class="slider-wrapper">
+            <h1 style="color:white;">Welcome</h1>
+        </div>
     </section>
 
     <section id="about">
         <div class="about-content">
             <h2>About Me</h2>
-            <p>I am Dr. Prem Raj Joshi, dedicated to healthcare and medical excellence in Nepal.</p>
+            <p>Dr. Prem Raj Joshi - Dedicated Medical Professional.</p>
             <button class="read-more-btn">Read more</button>
         </div>
         <div class="about-photo-circle">
@@ -221,18 +194,18 @@
 
     <section id="education">
         <h2 style="margin-bottom: 30px;">Educational Journey</h2>
-        <div class="grid-layout">
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/800080/fff?text=MBBS"><p>MBBS</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/6a0dad/fff?text=Residency"><p>Residency</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/4b0082/fff?text=Specialization"><p>Specialization</p></div>
+        <div class="empty-grid">
+            <div class="empty-card"><i class="fas fa-graduation-cap" style="font-size: 40px; color:#999;"></i></div>
+            <div class="empty-card"><i class="fas fa-university" style="font-size: 40px; color:#999;"></i></div>
+            <div class="empty-card"><i class="fas fa-award" style="font-size: 40px; color:#999;"></i></div>
         </div>
     </section>
 
     <section id="work">
         <h2 style="margin-bottom: 30px;">Work Experience</h2>
-        <div class="grid-layout">
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/007bff/fff?text=Hospital"><p>Hospital Practice</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/0056b3/fff?text=Teaching"><p>Medical Educator</p></div>
+        <div class="empty-grid">
+            <div class="empty-card"><i class="fas fa-hospital" style="font-size: 40px; color:#999;"></i></div>
+            <div class="empty-card"><i class="fas fa-stethoscope" style="font-size: 40px; color:#999;"></i></div>
         </div>
     </section>
 
@@ -240,19 +213,19 @@
         <div class="feeds-container">
             
             <div class="feed-item">
-                <div class="feed-header"><i class="fab fa-youtube" style="color:red"></i> YouTube Video</div>
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/S7E1amcCGUU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="feed-header">YouTube</div>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/S7E1amcCGUU" frameborder="0" allowfullscreen></iframe>
             </div>
 
             <div class="feed-item">
-                <div class="feed-header"><i class="fab fa-facebook" style="color:#1877F2"></i> Facebook Feed</div>
-                <div class="fb-page" data-href="https://www.facebook.com/share/17TLFwFPH1/" data-tabs="timeline" data-width="380" data-height="450" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+                <div class="feed-header">Facebook</div>
+                <div class="fb-page" data-href="https://www.facebook.com/premraj.joshi.142" data-tabs="timeline" data-width="380" data-height="450" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
             </div>
 
             <div class="feed-item">
-                <div class="feed-header"><i class="fab fa-x-twitter"></i> X Updates</div>
+                <div class="feed-header">X Updates</div>
                 <div style="overflow-y: scroll; height: 100%;">
-                    <a class="twitter-timeline" href="https://twitter.com/PRJtweets2090?ref_src=twsrc%5Etfw">Tweets by PRJtweets2090</a> 
+                    <a class="twitter-timeline" href="https://twitter.com/PRJtweets2090">Tweets by PRJtweets2090</a> 
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
             </div>
@@ -261,7 +234,7 @@
 
         <div class="footer-black">
             <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Links</a>
+                <a href="#">Privacy</a> | <a href="#">Terms</a>
             </div>
             <p>© 2026 Prem Raj Joshi - 9868827191</p>
         </div>
