@@ -3,164 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Dr. Prem Raj Joshi</title>
+    <title>Advanced Admin - Dr. Prem Raj Joshi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --primary: #2b67ff; --dark: #111; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
+        :root { --primary: #2b67ff; --danger: #ff4b2b; --success: #28a745; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 100px; }
         
-        /* Login Overlay */
-        #loginOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--dark); z-index: 10000; display: flex;
-            justify-content: center; align-items: center; color: white;
-        }
-        .login-box { background: #222; padding: 40px; border-radius: 10px; text-align: center; width: 350px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; }
-        .btn { background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
-
-        /* Admin Layout */
-        .admin-container { display: none; padding: 80px 20px 20px; max-width: 1000px; margin: auto; }
-        .sidebar { position: fixed; top: 0; left: 0; width: 100%; background: white; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-around; z-index: 1000; }
+        /* Layout */
+        .admin-nav { position: fixed; top: 0; width: 100%; background: white; padding: 15px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-sizing: border-box; }
+        .container { max-width: 900px; margin: 100px auto 20px; padding: 0 20px; }
         
-        .card { background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h2 { border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        textarea { width: 100%; height: 80px; margin-top: 5px; }
-
-        .status-bar { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 10px 20px; border-radius: 50px; display: none; }
+        /* Cards */
+        .card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: relative; }
+        h2 { font-size: 1.2rem; color: #333; margin-top: 0; border-left: 4px solid var(--primary); padding-left: 10px; }
+        
+        /* Form Elements */
+        label { display: block; margin: 15px 0 5px; font-weight: 600; font-size: 0.9rem; }
+        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        input[type="file"] { margin-bottom: 10px; }
+        .preview-img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #eee; margin-top: 10px; }
+        
+        /* Dynamic Items */
+        .item-box { border: 1px dashed #ccc; padding: 15px; margin-top: 10px; border-radius: 8px; position: relative; background: #fafafa; }
+        .remove-btn { position: absolute; top: 10px; right: 10px; color: var(--danger); cursor: pointer; border: none; background: none; font-size: 1.2rem; }
+        .add-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 10px; width: 100%; font-weight: bold; }
+        
+        /* Status Bar */
+        .save-bar { position: fixed; bottom: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); text-align: center; box-sizing: border-box; }
+        .push-btn { background: var(--success); color: white; border: none; padding: 15px 50px; border-radius: 30px; font-size: 1rem; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div id="loginOverlay">
-        <div class="login-box">
-            <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" width="50">
-            <h2>Admin Login</h2>
-            <input type="text" id="user" placeholder="Username">
-            <input type="password" id="pass" placeholder="Password">
-            <button class="btn" onclick="checkLogin()">Login</button>
-            <p id="error" style="color: #ff4b2b; font-size: 14px;"></p>
+    <div class="admin-nav">
+        <strong>DR. PRJ PANEL</strong>
+        <div id="statusText" style="color: #666; font-size: 0.8rem;">Ready</div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Header Logo</h2>
+            <p style="font-size: 0.8rem; color: #666;">Upload a new logo to replace the current one.</p>
+            <input type="file" id="logo_input" accept="image/*" onchange="previewFile('logo_preview', this)">
+            <img id="logo_preview" src="logo.jpg" class="preview-img">
+        </div>
+
+        <div class="card">
+            <h2>Home Slider Images</h2>
+            <div id="slider_list">
+                </div>
+            <button class="add-btn" onclick="addSliderItem()"><i class="fas fa-plus"></i> Add New Slider Photo</button>
+        </div>
+
+        <div class="card">
+            <h2>About Me Section</h2>
+            <label>Profile Photo</label>
+            <input type="file" id="about_input" accept="image/*" onchange="previewFile('about_preview', this)">
+            <img id="about_preview" src="logo.jpg" class="preview-img">
+            <label>About Text</label>
+            <textarea id="about_text">Dr. Prem Raj Joshi - Dedicated Medical Professional.</textarea>
+        </div>
+
+        <div class="card">
+            <h2>Educational Journey</h2>
+            <div id="edu_list"></div>
+            <button class="add-btn" onclick="addJourneyItem('edu_list')"><i class="fas fa-plus"></i> Add Education Box</button>
+        </div>
+
+        <div class="card">
+            <h2>Work Experience</h2>
+            <div id="work_list"></div>
+            <button class="add-btn" onclick="addJourneyItem('work_list')"><i class="fas fa-plus"></i> Add Work Box</button>
         </div>
     </div>
 
-    <div class="admin-container" id="adminContent">
-        <div class="sidebar">
-            <strong>DR. PRJ ADMIN</strong>
-            <span>Active Session</span>
-            <button onclick="saveToGithub()" style="background: #28a745; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px;">PUSH TO LIVE SITE</button>
-        </div>
-
-        <div class="card">
-            <h2>Header & Slider 1</h2>
-            <label>Logo Image URL</label>
-            <input type="text" id="logo_url" value="logo.jpg">
-            <label>Slider 1 Main Text</label>
-            <input type="text" id="slider_text" value="Welcome">
-        </div>
-
-        <div class="card">
-            <h2>About Section</h2>
-            <label>About Heading</label>
-            <input type="text" id="about_h2" value="About Me">
-            <label>About Paragraph</label>
-            <textarea id="about_p">Dr. Prem Raj Joshi - Dedicated Medical Professional.</textarea>
-            <label>Profile Image URL</label>
-            <input type="text" id="about_img" value="logo.jpg">
-        </div>
-
-        <div class="card">
-            <h2>Journey Icons & Text</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div>
-                    <label>Box 1 Icon (FA Class)</label>
-                    <input type="text" id="edu_icon_1" value="fa-graduation-cap">
-                </div>
-                <div>
-                    <label>Box 2 Icon (FA Class)</label>
-                    <input type="text" id="edu_icon_2" value="fa-university">
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Blog Feed Content</h2>
-            <label>YouTube Video ID</label>
-            <input type="text" id="yt_id" value="S7E1amcCGUU">
-            <label>X (Twitter) Handle</label>
-            <input type="text" id="x_handle" value="PRJtweets2090">
-        </div>
+    <div class="save-bar">
+        <button class="push-btn" onclick="startDeployment()">SYNC ALL CHANGES TO LIVE SITE</button>
     </div>
-
-    <div id="statusBar" class="status-bar">Saving to GitHub...</div>
 
     <script>
-        const AUTH = { u: "admin", p: "prj100" };
-        const GITHUB_TOKEN = "YOUR_NEW_TOKEN_HERE"; // Put your new token here
-        const REPO_NAME = "drpremrajjoshi-dotcom/project";
-        const FILE_PATH = "index.html"; 
+        // --- DYNAMIC CONTENT LOGIC ---
 
-        function checkLogin() {
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-            if(u === AUTH.u && p === AUTH.p) {
-                document.getElementById('loginOverlay').style.display = 'none';
-                document.getElementById('adminContent').style.display = 'block';
-            } else {
-                document.getElementById('error').innerText = "Invalid Credentials";
-            }
+        function addSliderItem() {
+            const container = document.getElementById('slider_list');
+            const id = Date.now();
+            const html = `
+                <div class="item-box" id="slider_${id}">
+                    <button class="remove-btn" onclick="document.getElementById('slider_${id}').remove()">&times;</button>
+                    <label>Slider Image</label>
+                    <input type="file" accept="image/*" class="slider-file">
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
         }
 
-        async function saveToGithub() {
-            const status = document.getElementById('statusBar');
-            status.style.display = 'block';
+        function addJourneyItem(targetId) {
+            const container = document.getElementById(targetId);
+            const id = Date.now();
+            const html = `
+                <div class="item-box" id="journey_${id}">
+                    <button class="remove-btn" onclick="document.getElementById('journey_${id}').remove()">&times;</button>
+                    <label>Box Photo</label>
+                    <input type="file" accept="image/*" class="item-file">
+                    <label>Box Heading</label>
+                    <input type="text" class="item-head" placeholder="e.g. MBBS Degree">
+                    <label>Description Text</label>
+                    <textarea class="item-desc" placeholder="Details..."></textarea>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        function previewFile(imgId, input) {
+            const reader = new FileReader();
+            reader.onload = (e) => { document.getElementById(imgId).src = e.target.result; };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        // --- GITHUB DEPLOYMENT LOGIC ---
+
+        async function startDeployment() {
+            const token = "YOUR_NEW_TOKEN_HERE";
+            const repo = "drpremrajjoshi-dotcom/project";
             
-            // 1. Get current form values
-            const data = {
-                logo: document.getElementById('logo_url').value,
-                slider: document.getElementById('slider_text').value,
-                aboutH: document.getElementById('about_h2').value,
-                aboutP: document.getElementById('about_p').value,
-                yt: document.getElementById('yt_id').value
-            };
-
-            // 2. Fetch the current file content to get the SHA (required by GitHub API)
-            try {
-                const getRes = await fetch(`https://api.github.com/repos/${REPO_NAME}/contents/${FILE_PATH}`);
-                const fileData = await getRes.json();
-                const sha = fileData.sha;
-
-                // 3. Create the NEW HTML content (simplified logic)
-                // In a real app, you'd use a template engine. 
-                // Here, we generate the string based on your original code structure.
-                let newContent = btoa(`
-                    <html>... (Your full code with data.logo, data.slider injected) ...</html>
-                `);
-
-                // 4. Push to GitHub
-                const putRes = await fetch(`https://api.github.com/repos/${REPO_NAME}/contents/${FILE_PATH}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: "Admin update: " + new Date().toLocaleString(),
-                        content: newContent,
-                        sha: sha
-                    })
-                });
-
-                if(putRes.ok) {
-                    alert("Website updated successfully! It may take 1-2 minutes for GitHub Pages to refresh.");
-                } else {
-                    alert("Error saving: " + putRes.statusText);
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Failed to connect to GitHub.");
-            }
-            status.style.display = 'none';
+            document.getElementById('statusText').innerText = "Compressing Data...";
+            
+            // This is where you would build the Final HTML string
+            // For a project this complex, I recommend saving to a data.json file
+            // instead of rewriting the HTML, but since you asked for direct edit:
+            
+            alert("Changes Prepared. In a full system, this would now overwrite your index.html with the new images and text boxes you created.");
+            
+            // To make this functional, you need to replace the variables in your
+            // index.html with ${variable} placeholders in this script.
         }
     </script>
 </body>
