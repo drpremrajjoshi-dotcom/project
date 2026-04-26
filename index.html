@@ -27,13 +27,13 @@ body {
     z-index: 1000;
 }
 
-/* LEFT AREA (LOGO + NAME) */
+/* LEFT AREA */
 .left {
     display: flex;
     align-items: center;
 }
 
-/* Logo image */
+/* LOGO */
 .logo-img {
     width: 42px;
     height: 42px;
@@ -47,11 +47,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     text-decoration: none;
-    color: black;
-}
-
-.name-main:hover {
-    color: #007bff;
+    color: #222;
 }
 
 /* NAV */
@@ -63,7 +59,7 @@ body {
 .nav a {
     margin: 0 8px;
     text-decoration: none;
-    color: black;
+    color: #222;
     font-weight: 500;
 }
 
@@ -71,7 +67,7 @@ body {
     color: #007bff;
 }
 
-/* SOCIAL ICONS (OFFICIAL COLORS) */
+/* SOCIAL ICONS (REAL BRAND COLORS) */
 .social {
     display: flex;
     align-items: center;
@@ -84,7 +80,7 @@ body {
     text-decoration: none;
 }
 
-/* Brand colors */
+/* Brand Colors */
 .facebook { color: #1877F2; }
 .instagram { color: #E4405F; }
 .tiktok { color: #000000; }
@@ -92,7 +88,7 @@ body {
 .youtube { color: #FF0000; }
 
 .social a:hover {
-    opacity: 0.7;
+    transform: scale(1.1);
 }
 
 /* DATE TIME */
@@ -103,7 +99,7 @@ body {
     text-align: right;
 }
 
-/* MENU ICON */
+/* MENU */
 .menu-toggle {
     display: none;
     font-size: 22px;
@@ -138,7 +134,6 @@ body {
     }
 }
 
-/* CONTENT */
 section {
     padding: 60px 20px;
 }
@@ -149,10 +144,10 @@ section {
 
 <header class="header" id="header">
 
-    <!-- LEFT (LOGO + NAME) -->
+    <!-- LEFT: LOGO + NAME -->
     <div class="left">
         <a href="">
-            <img src="logo.png" class="logo-img" alt="Logo">
+            <img src="logo.jpg" class="logo-img" alt="Logo">
         </a>
 
         <a href="" class="name-main">
@@ -160,11 +155,11 @@ section {
         </a>
     </div>
 
-    <!-- MENU ICON -->
+    <!-- MENU -->
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-    <!-- NAV -->
     <nav class="nav" id="navMenu">
+
         <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Portfolio</a>
@@ -175,32 +170,27 @@ section {
 
         <!-- SOCIAL ICONS -->
         <div class="social">
-            <a href="https://www.facebook.com/share/17TLFwFPH1/" target="_blank" class="facebook">
+            <a href="https://www.facebook.com/share/17TLFwFPH1/" class="facebook" target="_blank">
                 <i class="fab fa-facebook-f"></i>
             </a>
 
-            <a href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank" class="instagram">
+            <a href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" class="instagram" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
 
-            <a href="https://www.tiktok.com/@prejo11" target="_blank" class="tiktok">
+            <a href="https://www.tiktok.com/@prejo11" class="tiktok" target="_blank">
                 <i class="fab fa-tiktok"></i>
             </a>
 
-            <a href="https://x.com/PRJtweets2090" target="_blank" class="twitter">
+            <a href="https://x.com/PRJtweets2090" class="twitter" target="_blank">
                 <i class="fab fa-x-twitter"></i>
             </a>
 
-            <a href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" target="_blank" class="youtube">
+            <a href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" class="youtube" target="_blank">
                 <i class="fab fa-youtube"></i>
             </a>
         </div>
 
-        <!-- NEPALI DATE & TIME -->
-        <div class="datetime">
-            <div id="nepaliDate"></div>
-            <div id="time"></div>
-        </div>
     </nav>
 
 </header>
@@ -212,30 +202,10 @@ section {
 <section><h2>Contact</h2></section>
 
 <script>
-// MENU TOGGLE
 function toggleMenu() {
     document.getElementById("navMenu").classList.toggle("active");
 }
-
-// NEPALI DATE + TIME (simple local format)
-function updateTime() {
-    const now = new Date();
-
-    document.getElementById("nepaliDate").innerText =
-        now.toLocaleDateString("en-NP", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-
-    document.getElementById("time").innerText =
-        now.toLocaleTimeString();
-}
-
-setInterval(updateTime, 1000);
-updateTime();
 </script>
-
 
 </body>
 </html>
