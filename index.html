@@ -5,43 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dr. Prem Raj Joshi</title>
 
-<!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+
+/* ================= BODY ================= */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .header {
     position: sticky;
     top: 0;
-    background: rgb(67, 28, 28);
-    padding: 10px 20px;
+    background: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 12px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     z-index: 1000;
+    transition: 0.3s;
 }
 
-/* LEFT AREA */
+.header.scrolled {
+    padding: 6px 20px;
+}
+
+/* LEFT */
 .left {
     display: flex;
     align-items: center;
 }
 
-/* LOGO */
-img src= "https://getshared.com/s/BO7jctjlvaph"
-    width: 42px;
-    height: 42px;
+.logo-img {
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-/* NAME */
 .name-main {
     margin-left: 12px;
     font-size: 16px;
@@ -61,13 +66,25 @@ img src= "https://getshared.com/s/BO7jctjlvaph"
     text-decoration: none;
     color: #222;
     font-weight: 500;
+    position: relative;
 }
 
-.nav a:hover {
-    color: #007bff;
+.nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: #007bff;
+    transition: 0.3s;
 }
 
-/* SOCIAL ICONS (REAL BRAND COLORS) */
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* SOCIAL */
 .social {
     display: flex;
     align-items: center;
@@ -77,18 +94,18 @@ img src= "https://getshared.com/s/BO7jctjlvaph"
 .social a {
     margin-left: 10px;
     font-size: 18px;
-    text-decoration: none;
+    transition: 0.3s;
 }
 
-/* Brand Colors */
+/* COLORS */
 .facebook { color: #1877F2; }
 .instagram { color: #E4405F; }
-.tiktok { color: #000000; }
+.tiktok { color: #000; }
 .twitter { color: #1DA1F2; }
 .youtube { color: #FF0000; }
 
 .social a:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 /* DATE TIME */
@@ -102,52 +119,92 @@ img src= "https://getshared.com/s/BO7jctjlvaph"
 /* MENU */
 .menu-toggle {
     display: none;
-    font-size: 22px;
+    font-size: 24px;
     cursor: pointer;
 }
 
-/* MOBILE */
+/* ================= MOBILE SLIDE MENU ================= */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
     }
 
     .nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        right: 0;
-        top: 60px;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 260px;
         background: white;
-        width: 240px;
-        padding: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        flex-direction: column;
+        padding: 60px 20px;
+        transition: 0.3s;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
     }
 
     .nav.active {
-        display: flex;
+        right: 0;
+    }
+
+    .nav a {
+        margin: 12px 0;
+    }
+
+    .social {
+        margin-top: 20px;
+        flex-wrap: wrap;
     }
 
     .datetime {
-        margin-top: 10px;
+        margin-top: 15px;
         text-align: left;
     }
 }
 
+/* ================= HERO SECTION ================= */
+.hero {
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    background: linear-gradient(to right, #f5f7fa, #e4ecf7);
+}
+
+.hero img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.hero h1 {
+    margin: 15px 0 5px;
+}
+
+.hero p {
+    color: gray;
+}
+
+/* ================= SECTIONS ================= */
 section {
     padding: 60px 20px;
+    text-align: center;
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header" id="header">
 
-    <!-- LEFT: LOGO + NAME -->
     <div class="left">
         <a href="">
-            <img src="logo.jpg" class="logo-img" alt="Logo">
+            <img src="logo.jpg" class="logo-img" alt="logo">
         </a>
 
         <a href="" class="name-main">
@@ -155,7 +212,6 @@ section {
         </a>
     </div>
 
-    <!-- MENU -->
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
     <nav class="nav" id="navMenu">
@@ -168,43 +224,63 @@ section {
         <a href="#">Blog</a>
         <a href="#">Contact</a>
 
-        <!-- SOCIAL ICONS -->
+        <!-- SOCIAL -->
         <div class="social">
-            <a href="https://www.facebook.com/share/17TLFwFPH1/" class="facebook" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-            </a>
+            <a class="facebook" href="https://www.facebook.com/share/17TLFwFPH1/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a class="instagram" href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a class="tiktok" href="https://www.tiktok.com/@prejo11" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a class="twitter" href="https://x.com/PRJtweets2090" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a class="youtube" href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
 
-            <a href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" class="instagram" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
-
-            <a href="https://www.tiktok.com/@prejo11" class="tiktok" target="_blank">
-                <i class="fab fa-tiktok"></i>
-            </a>
-
-            <a href="https://x.com/PRJtweets2090" class="twitter" target="_blank">
-                <i class="fab fa-x-twitter"></i>
-            </a>
-
-            <a href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" class="youtube" target="_blank">
-                <i class="fab fa-youtube"></i>
-            </a>
+        <!-- DATE TIME -->
+        <div class="datetime">
+            <div id="bsDate"></div>
+            <div id="time"></div>
         </div>
 
     </nav>
-
 </header>
 
-<!-- CONTENT -->
-<section><h2>Home</h2></section>
+<!-- HERO -->
+<div class="hero">
+    <img src="logo.jpg" alt="profile">
+    <h1>Dr. Prem Raj Joshi</h1>
+    <p>Medical Professional | Nepal</p>
+</div>
+
+<!-- SECTIONS -->
 <section><h2>About</h2></section>
 <section><h2>Services</h2></section>
 <section><h2>Contact</h2></section>
 
 <script>
+
+/* MENU */
 function toggleMenu() {
     document.getElementById("navMenu").classList.toggle("active");
 }
+
+/* HEADER SCROLL EFFECT */
+window.addEventListener("scroll", () => {
+    document.getElementById("header")
+    .classList.toggle("scrolled", window.scrollY > 50);
+});
+
+/* TIME */
+function updateTime() {
+    const now = new Date();
+    document.getElementById("time").innerText = now.toLocaleTimeString();
+
+    // Simple BS-style placeholder (approx)
+    const bsYear = now.getFullYear() + 57; // rough conversion
+    document.getElementById("bsDate").innerText =
+        "BS " + bsYear + " / " + now.toLocaleDateString();
+}
+
+setInterval(updateTime, 1000);
+updateTime();
+
 </script>
 
 </body>
