@@ -3,150 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRJ Admin Panel</title>
+    <title>Master Admin - Dr. Prem Raj Joshi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 40px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-        h2 { color: #1a73e8; text-align: center; margin-bottom: 25px; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; }
-        .btn-login { background-color: #1a73e8; color: white; }
-        .btn-upload { background-color: #34a853; color: white; }
-        .btn-delete { background-color: #ea4335; color: white; }
-        #adminTools { display: none; border-top: 2px solid #eee; margin-top: 20px; padding-top: 20px; }
-        #status { text-align: center; margin-top: 15px; font-size: 0.9em; font-weight: bold; }
+        :root { --primary: #2b67ff; --danger: #ff4b2b; --success: #28a745; --dark: #1a1a1a; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 120px; }
+        
+        #loginOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--dark); z-index: 10000; display: flex;
+            justify-content: center; align-items: center; color: white;
+        }
+        .login-box { background: #222; padding: 40px; border-radius: 15px; text-align: center; width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #333; color: white; box-sizing: border-box; }
+        
+        .admin-nav { position: fixed; top: 0; width: 100%; background: white; padding: 15px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 1000; box-sizing: border-box; }
+        .container { max-width: 900px; margin: 100px auto 20px; padding: 0 20px; display: none; }
+        
+        .card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        h2 { font-size: 1.1rem; color: #333; margin-top: 0; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
+        label { display: block; margin: 15px 0 5px; font-weight: 600; font-size: 0.85rem; color: #555; }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 0.9rem; }
+        
+        .preview-img { width: 120px; height: 120px; object-fit: cover; border-radius: 10px; border: 2px solid #eee; margin-top: 10px; display: block; }
+        
+        .item-box { border: 1px solid #eee; padding: 20px; margin-top: 15px; border-radius: 10px; position: relative; background: #fdfdfd; }
+        .remove-btn { position: absolute; top: 10px; right: 10px; color: var(--danger); cursor: pointer; border: none; background: none; font-size: 1.3rem; }
+        .add-btn { background: #f0f4ff; color: var(--primary); border: 2px dashed var(--primary); padding: 12px; border-radius: 8px; cursor: pointer; margin-top: 10px; width: 100%; font-weight: bold; transition: 0.3s; }
+        .add-btn:hover { background: var(--primary); color: white; }
+
+        .save-bar { position: fixed; bottom: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); text-align: center; box-sizing: border-box; z-index: 999; }
+        .push-btn { background: var(--success); color: white; border: none; padding: 15px 60px; border-radius: 50px; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Admin Access</h2>
-    
-    <div id="loginSection">
-        <div class="input-group">
-            <label>Username</label>
-            <input type="text" id="user" placeholder="Enter username">
-        </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="pass" placeholder="Enter password">
-        </div>
-        <button class="btn-login" onclick="checkLogin()">Login</button>
-    </div>
-
-    <div id="adminTools">
-        <div class="input-group">
-            <label>GitHub Personal Token</label>
-            <input type="password" id="ghToken" placeholder="Paste your GitHub Token here">
-        </div>
-
-        <hr>
-
-        <h3>Manage Photos</h3>
-        <div class="input-group">
-            <label>Upload Photo</label>
-            <input type="file" id="fileInput" accept="image/*">
-            <button class="btn-upload" onclick="handleUpload()">Upload to Images Folder</button>
-        </div>
-
-        <div class="input-group" style="margin-top: 25px;">
-            <label>Delete Photo (by name)</label>
-            <input type="text" id="deleteName" placeholder="e.g., photo1.jpg">
-            <button class="btn-delete" onclick="handleDelete()">Delete Permanently</button>
+    <div id="loginOverlay">
+        <div class="login-box">
+            <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <h2>Dr. Joshi Admin</h2>
+            <input type="text" id="user" placeholder="Username">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="push-btn" style="width:100%; margin-top:10px;" onclick="checkLogin()">Access Panel</button>
+            <p id="error" style="color: var(--danger); margin-top:15px; font-size: 0.9rem;"></p>
         </div>
     </div>
 
-    <p id="status"></p>
-</div>
+    <div class="admin-nav">
+        <strong><i class="fas fa-edit"></i> DR. PRJ LIVE EDITOR</strong>
+        <div id="statusText" style="font-weight:bold; color: var(--primary);">System Online</div>
+    </div>
 
-<script>
-    const REPO = "drpremrajjoshi-dotcom/project";
-    const BRANCH = "master";
+    <div class="container" id="adminContent">
+        <div class="card">
+            <h2>1. Header & Branding</h2>
+            <label>Update Website Logo</label>
+            <input type="file" accept="image/*" onchange="previewImage(this, 'logo_preview')">
+            <img id="logo_preview" src="logo.jpg" class="preview-img">
+        </div>
 
-    // 1. Check Login Credentials
-    function checkLogin() {
-        const u = document.getElementById('user').value;
-        const p = document.getElementById('pass').value;
-        const status = document.getElementById('status');
+        <div class="card">
+            <h2>2. Home Slider (Unlimited Photos)</h2>
+            <div id="slider_list"></div>
+            <button class="add-btn" onclick="addSliderItem()"><i class="fas fa-plus-circle"></i> Add Image to Slider</button>
+        </div>
 
-        if (u === "admin" && p === "prj100") {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('adminTools').style.display = 'block';
-            status.style.color = "green";
-            status.innerText = "Login Successful.";
-        } else {
-            status.style.color = "red";
-            status.innerText = "Invalid credentials!";
-        }
-    }
+        <div class="card">
+            <h2>3. About Me Section</h2>
+            <label>Profile Picture</label>
+            <input type="file" accept="image/*" onchange="previewImage(this, 'about_preview')">
+            <img id="about_preview" src="logo.jpg" class="preview-img">
+            <label>Section Heading</label>
+            <input type="text" id="about_h2" value="About Me">
+            <label>Biography Text</label>
+            <textarea id="about_text">Dr. Prem Raj Joshi - Dedicated Medical Professional.</textarea>
+        </div>
 
-    // 2. Handle Photo Upload
-    async function handleUpload() {
-        const token = document.getElementById('ghToken').value;
-        const fileInput = document.getElementById('fileInput');
-        const status = document.getElementById('status');
+        <div class="card">
+            <h2>4. Educational Journey</h2>
+            <div id="edu_list"></div>
+            <button class="add-btn" onclick="addJourneyItem('edu_list')"><i class="fas fa-graduation-cap"></i> Add Education Box</button>
+        </div>
 
-        if (!token) return alert("Paste your GitHub Token first!");
-        if (!fileInput.files[0]) return alert("Select a file!");
+        <div class="card">
+            <h2>5. Work Experience</h2>
+            <div id="work_list"></div>
+            <button class="add-btn" onclick="addJourneyItem('work_list')"><i class="fas fa-hospital"></i> Add Experience Box</button>
+        </div>
+    </div>
 
-        const file = fileInput.files[0];
-        const reader = new FileReader();
-        status.innerText = "Uploading...";
+    <div class="save-bar">
+        <button class="push-btn" onclick="startDeployment()">SYNC ALL CHANGES TO LIVE SITE</button>
+    </div>
 
-        reader.onload = async () => {
-            const content = reader.result.split(',')[1];
-            const path = `images/${file.name}`;
+    <script>
+        const AUTH = { u: "admin", p: "prj100" };
+        const GITHUB_TOKEN = "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"; 
+        const REPO = "drpremrajjoshi-dotcom/project";
 
-            const response = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-                method: 'PUT',
-                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: "Admin upload", content: content, branch: BRANCH })
-            });
-
-            if (response.ok) {
-                status.innerText = "✅ Uploaded! Site will update shortly.";
+        function checkLogin() {
+            if(document.getElementById('user').value === AUTH.u && document.getElementById('pass').value === AUTH.p) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
             } else {
-                status.innerText = "❌ Error. Check token or if file exists.";
+                document.getElementById('error').innerText = "Incorrect username or password.";
             }
-        };
-        reader.readAsDataURL(file);
-    }
-
-    // 3. Handle Photo Delete
-    async function handleDelete() {
-        const token = document.getElementById('ghToken').value;
-        const fileName = document.getElementById('deleteName').value;
-        const status = document.getElementById('status');
-
-        if (!token || !fileName) return alert("Token and Filename required!");
-
-        status.innerText = "Deleting...";
-        const path = `images/${fileName}`;
-
-        // Get File SHA first
-        const getRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-            headers: { 'Authorization': `token ${token}` }
-        });
-
-        if (!getRes.ok) return status.innerText = "❌ File not found.";
-        const data = await getRes.json();
-
-        // Perform Delete
-        const delRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: "Admin delete", sha: data.sha, branch: BRANCH })
-        });
-
-        if (delRes.ok) {
-            status.innerText = "✅ File deleted successfully.";
-        } else {
-            status.innerText = "❌ Error deleting file.";
         }
-    }
-</script>
 
+        function previewImage(input, targetId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => { document.getElementById(targetId).src = e.target.result; };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function addSliderItem() {
+            const id = "slider_" + Date.now();
+            const html = `<div class="item-box" id="${id}"><button class="remove-btn" onclick="document.getElementById('${id}').remove()">&times;</button><label>Slider Image</label><input type="file" accept="image/*" onchange="previewDynamicImage(this, '${id}_img')"><img id="${id}_img" src="" class="preview-img" style="margin-top:10px;"></div>`;
+            document.getElementById('slider_list').insertAdjacentHTML('beforeend', html);
+        }
+
+        function addJourneyItem(targetId) {
+            const id = "item_" + Date.now();
+            const html = `<div class="item-box" id="${id}"><button class="remove-btn" onclick="document.getElementById('${id}').remove()">&times;</button><label>Box Photo</label><input type="file" accept="image/*" onchange="previewDynamicImage(this, '${id}_img')"><img id="${id}_img" src="" class="preview-img" style="margin-bottom:10px;"><input type="text" class="item-head" placeholder="Heading"><textarea class="item-desc" style="margin-top:10px;" placeholder="Description..."></textarea></div>`;
+            document.getElementById(targetId).insertAdjacentHTML('beforeend', html);
+        }
+
+        function previewDynamicImage(input, imgId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => { document.getElementById(imgId).src = e.target.result; };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        async function startDeployment() {
+            document.getElementById('statusText').innerText = "Syncing...";
+            const websiteData = {
+                logo: document.getElementById('logo_preview').src,
+                aboutH: document.getElementById('about_h2').value,
+                aboutP: document.getElementById('about_text').value,
+                aboutImg: document.getElementById('about_preview').src,
+                sliderImages: [], education: [], work: []
+            };
+
+            document.querySelectorAll('#slider_list .item-box img').forEach(img => { if(img.src.startsWith('data:')) websiteData.sliderImages.push(img.src); });
+            document.querySelectorAll('#edu_list .item-box').forEach(box => { websiteData.education.push({ title: box.querySelector('.item-head').value, desc: box.querySelector('.item-desc').value, image: box.querySelector('img').src }); });
+            document.querySelectorAll('#work_list .item-box').forEach(box => { websiteData.work.push({ title: box.querySelector('.item-head').value, desc: box.querySelector('.item-desc').value, image: box.querySelector('img').src }); });
+
+            try {
+                const getRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
+                let sha = getRes.ok ? (await getRes.json()).sha : "";
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(websiteData, null, 2))));
+                const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: "Update: " + new Date().toISOString(), content: content, sha: sha })
+                });
+                if(putRes.ok) alert("Website Synced Successfully!");
+                else alert("Sync failed. Verify token permissions.");
+            } catch (err) { alert("Error: " + err.message); }
+            document.getElementById('statusText').innerText = "System Online";
+        }
+    </script>
 </body>
 </html>
