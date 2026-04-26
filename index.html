@@ -1,259 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr. Prem Raj Joshi</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Prem Raj Joshi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
-    /* GLOBAL & SNAP SCROLLING */
-    * { box-sizing: border-box; }
-    html, body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        scroll-behavior: smooth;
-        overflow-x: hidden;
-    }
-    
-    /* Enables the "fit to screen" snapping effect */
-    body {
-        scroll-snap-type: y mandatory;
-        height: 100vh;
-        overflow-y: scroll;
-    }
+    <style>
+        /* --- CORE STYLES & SNAP SCROLLING --- */
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            /* Enables the "Fit to Screen" snapping effect */
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
+        }
 
-    section {
-        height: 100vh;
-        width: 100%;
-        scroll-snap-align: start;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 80px 20px;
-        position: relative;
-    }
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-    /* POPUP MODAL (Same as before) */
-    .modal-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex; justify-content: center; align-items: center;
-        z-index: 10000;
-    }
-    .modal-content {
-        background: linear-gradient(135deg, #ff4b2b, #2b67ff);
-        width: 400px; height: 400px; border-radius: 15px;
-        position: relative; padding: 30px; color: white;
-        text-align: center; display: flex; flex-direction: column; justify-content: center;
-    }
-    .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; }
-    .ig-link { color: #ff0000; text-decoration: none; font-weight: bold; }
+        /* --- NOTICE POPUP --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10000;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #ff4b2b, #2b67ff);
+            width: 400px; height: 400px; border-radius: 15px;
+            position: relative; padding: 30px; color: white;
+            text-align: center; display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; }
+        .ig-link-popup { color: #ff0000; text-decoration: none; font-weight: bold; }
 
-    /* HEADER (Kept Same) */
-    .header {
-        position: fixed; top: 0; width: 100%;
-        background: white; display: flex; justify-content: space-between;
-        align-items: center; padding: 12px 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000;
-    }
-    .left { display: flex; align-items: center; }
-    .logo-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
-    .flag-gif { width: 30px; margin-left: 10px; }
-    .name-main { margin-left: 12px; font-size: 16px; font-weight: bold; text-decoration: none; color: #222; }
-    .nav { display: flex; align-items: center; }
-    .nav a { margin: 0 8px; text-decoration: none; color: #222; font-weight: 500; }
-    .social a { margin-left: 10px; font-size: 18px; }
-    .datetime-container { margin-left: 15px; font-size: 11px; color: #004a99; text-align: right; }
+        /* --- HEADER --- */
+        .header {
+            position: fixed; top: 0; width: 100%;
+            background: white; display: flex; justify-content: space-between;
+            align-items: center; padding: 12px 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000;
+        }
+        .left { display: flex; align-items: center; }
+        .logo-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .flag-gif { width: 35px; margin-left: 12px; }
+        .name-main { margin-left: 12px; font-size: 18px; font-weight: bold; text-decoration: none; color: #222; }
+        
+        .nav { display: flex; align-items: center; }
+        .nav a { margin: 0 12px; text-decoration: none; color: #333; font-weight: 500; transition: 0.3s; }
+        .nav a:hover { color: #007bff; }
+        
+        .datetime-container { margin-left: 20px; font-size: 12px; color: #004a99; font-weight: bold; text-align: right; }
 
-    /* CHAT BOT SYMBOL */
-    .chat-bot {
-        position: fixed; bottom: 30px; right: 30px;
-        background: white; border: 2px solid #007bff;
-        border-radius: 50%; width: 60px; height: 60px;
-        display: flex; flex-direction: column; justify-content: center;
-        align-items: center; cursor: pointer; z-index: 999;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    .chat-bot i { font-size: 20px; color: #007bff; }
-    .chat-bot span { font-size: 10px; font-weight: bold; }
+        /* --- CHATBOT MSG SYMBOL --- */
+        .chat-bot {
+            position: fixed; bottom: 30px; right: 30px;
+            background: white; border: 2px solid #007bff;
+            border-radius: 50%; width: 65px; height: 65px;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; cursor: pointer; z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .chat-bot i { font-size: 22px; color: #007bff; }
+        .chat-bot span { font-size: 10px; font-weight: bold; color: #333; }
 
-    /* SECTION 1: PHOTO SLIDER */
-    #home { background: #f9f9f9; }
-    .slider-container { width: 80%; height: 60%; background: #ddd; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        /* --- SECTION 1: HOME GALLERY (FULL SCREEN) --- */
+        #home { background: #000; padding: 0; }
+        .slider-wrapper {
+            width: 100%; height: 100%;
+            background: url('https://via.placeholder.com/1920x1080/222/fff?text=Photo+Sliding+Every+10s') no-repeat center center/cover;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slider-overlay-text { background: rgba(0,0,0,0.4); color: white; padding: 20px; font-size: 2rem; border-radius: 10px; }
 
-    /* SECTION 2: ABOUT ME */
-    #about { background: white; flex-direction: row; justify-content: space-around; }
-    .about-text { width: 50%; text-align: left; }
-    .about-photo-circle { width: 300px; height: 300px; border-radius: 50%; border: 5px solid #007bff; overflow: hidden; }
-    .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
-    .read-more { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        /* --- SECTION 2: ABOUT ME --- */
+        #about { background: #ffffff; flex-direction: row; gap: 60px; padding: 0 10%; }
+        .about-content { flex: 1; text-align: left; }
+        .about-content h2 { font-size: 36px; color: #007bff; }
+        .about-photo-circle { 
+            width: 350px; height: 350px; 
+            border-radius: 50%; border: 8px solid #007bff; 
+            overflow: hidden; flex-shrink: 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .read-more-btn { margin-top: 20px; padding: 12px 30px; background: #007bff; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
 
-    /* SECTION 3: EDUCATIONAL JOURNEY (Purple) */
-    #education { background: #E6E6FA; } /* Light Purple */
-    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; width: 90%; }
-    .card { background: white; padding: 10px; border: 1px solid #ccc; text-align: center; }
-    .card img { width: 100%; height: 100px; object-fit: cover; background: #eee; }
+        /* --- SECTION 3 & 4: JOURNEY & EXPERIENCE (Tall Images) --- */
+        #education { background: #F3E5F5; } /* Purple BG */
+        #work { background: #E1F5FE; } /* Sky Blue BG */
+        
+        .grid-layout { display: flex; justify-content: center; gap: 25px; width: 90%; }
+        .tall-card { 
+            background: white; width: 260px; border-radius: 12px; 
+            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            transition: transform 0.3s;
+        }
+        .tall-card:hover { transform: translateY(-10px); }
+        .tall-card img { width: 100%; height: 400px; object-fit: cover; background: #ccc; }
+        .tall-card p { padding: 15px; font-weight: bold; text-align: center; margin: 0; color: #444; }
 
-    /* SECTION 4: WORK EXPERIENCE (Sky Blue) */
-    #work { background: #E0F7FA; }
+        /* --- SECTION 5: FEEDS & FOOTER (Fit on same page) --- */
+        #feeds-footer { 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: space-between; padding: 80px 0 0 0;
+        }
+        .feeds-container { display: flex; justify-content: center; gap: 30px; flex-grow: 1; align-items: center; }
+        .feed-item { 
+            width: 320px; height: 450px; /* Bigger height */
+            border: 2px solid #333; border-radius: 15px;
+            background: white; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; font-weight: bold;
+        }
+        .feed-item i { font-size: 50px; margin-bottom: 15px; }
 
-    /* SECTION 5: FEEDS & FOOTER (Fit together) */
-    #feeds-footer { 
-        height: 100vh; display: flex; flex-direction: column; 
-        justify-content: space-between; padding-bottom: 0;
-    }
-    .feeds-row { display: flex; justify-content: space-around; width: 100%; margin-top: auto; }
-    .feed-box { width: 250px; height: 250px; border: 2px solid #333; display: flex; align-items: center; justify-content: center; background: #fff; }
+        /* --- BLACK & WHITE FOOTER --- */
+        .footer-black {
+            background: #111; color: white; width: 100%; padding: 30px;
+            text-align: center;
+        }
+        .footer-links a { color: #bbb; margin: 0 15px; text-decoration: none; font-size: 14px; }
+        .footer-links a:hover { color: white; }
 
-    /* FOOTER (Black & White) */
-    .footer-panel {
-        background: #000; color: #fff; width: 100%; padding: 20px;
-        margin-top: 40px; text-align: center;
-    }
-    .footer-links a { color: white; margin: 0 10px; text-decoration: none; font-size: 14px; }
+        /* --- CONTACT PANEL --- */
+        #contactPanel {
+            display: none; position: fixed; bottom: 105px; right: 30px;
+            width: 300px; background: white; border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1001; padding: 25px;
+        }
 
-    /* CONTACT PANEL (Hidden by default) */
-    #contactPanel {
-        display: none; position: fixed; bottom: 100px; right: 30px;
-        width: 300px; background: white; border-radius: 10px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 1000; padding: 20px;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-        #about { flex-direction: column-reverse; }
-        .about-text { width: 100%; text-align: center; }
-        .about-photo-circle { width: 200px; height: 200px; }
-        .feeds-row { flex-direction: column; align-items: center; gap: 10px; }
-        .feed-box { width: 80%; height: 150px; }
-        .nav { display: none; } /* Simplified for mobile example */
-    }
-</style>
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 1024px) {
+            #about { flex-direction: column-reverse; text-align: center; gap: 30px; padding: 80px 20px; }
+            .about-content { text-align: center; }
+            .grid-layout { flex-wrap: wrap; overflow-y: auto; height: 80%; }
+            .tall-card { width: 45%; }
+            .feeds-container { flex-direction: column; gap: 10px; padding: 20px 0; }
+            .feed-item { width: 90%; height: 120px; flex-direction: row; gap: 20px; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="modal-overlay" id="noticeModal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2>Notice</h2>
-        <p>Hello, wonderful supporter!</p>
-        <p>Thank you for visiting the site! Please note that it is currently under construction.</p>
-        <p>With heartfelt gratitude,</p>
-        <p>You Can Contact Us on <a href="https://www.instagram.com/the_prem.rajj" target="_blank" class="ig-link">Instagram</a></p>
-    </div>
-</div>
-
-<header class="header">
-    <div class="left">
-        <img src="logo.jpg" class="logo-img" alt="logo">
-        <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif">
-        <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
-    </div>
-    <nav class="nav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#education">Journey</a>
-        <a href="#feeds-footer">Contact</a>
-        <div class="datetime-container">
-            <div id="nepali-date">2083-01-13</div>
-            <div id="nepali-time">00:00:00</div>
+    <div class="modal-overlay" id="noticeModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Notice</h2>
+            <p>Hello, wonderful supporter!</p>
+            <p>Thank you for visiting! Please note that it is currently under construction and not yet finalized.</p>
+            <p>Our team is working hard and will be live soon.</p>
+            <p>You Can Contact Us on <br>
+               <a href="https://www.instagram.com/the_prem.rajj" target="_blank" class="ig-link-popup" style="color:red">Instagram</a> <br>
+               For more Informations
+            </p>
         </div>
-    </nav>
-</header>
-
-<div class="chat-bot" onclick="toggleContact()">
-    <i class="fas fa-comment-dots"></i>
-    <span>Hello!</span>
-</div>
-
-<div id="contactPanel">
-    <h3>Contact Me</h3>
-    <p>Email: example@mail.com</p>
-    <p>Phone: 9868827191</p>
-    <button onclick="toggleContact()">Close</button>
-</div>
-
-<section id="home">
-    <h2>Gallery</h2>
-    <div class="slider-container">
-        <p>[ Photos Sliding Itself - 10s Interval ]</p>
-    </div>
-</section>
-
-<section id="about">
-    <div class="about-text">
-        <h1>About Me</h1>
-        <p>Your professional bio goes here. This text explains your background and medical expertise.</p>
-        <button class="read-more">Read More</button>
-    </div>
-    <div class="about-photo-circle">
-        <img src="logo.jpg" alt="Dr. Joshi">
-    </div>
-</section>
-
-<section id="education">
-    <h2>Educational Journey</h2>
-    <div class="grid-container">
-        <div class="card"><img src=""> <p>MBBS - Phase 1</p></div>
-        <div class="card"><img src=""> <p>Specialization</p></div>
-        <div class="card"><img src=""> <p>Training</p></div>
-        <div class="card"><img src=""> <p>Workshop</p></div>
-    </div>
-</section>
-
-<section id="work">
-    <h2>Work Experience</h2>
-    <div class="grid-container">
-        <div class="card"><p>Hospital A</p></div>
-        <div class="card"><p>Clinic B</p></div>
-        <div class="card"><p>Research C</p></div>
-        <div class="card"><p>Consultant D</p></div>
-    </div>
-</section>
-
-<section id="feeds-footer">
-    <div class="feeds-row">
-        <div class="feed-box"><i class="fab fa-youtube"></i> Video Feed</div>
-        <div class="feed-box"><i class="fab fa-facebook"></i> Facebook Feed</div>
-        <div class="feed-box"><i class="fab fa-x-twitter"></i> X Feed</div>
     </div>
 
-    <div class="footer-panel">
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a> | 
-            <a href="#">Terms and Conditions</a> | 
-            <a href="#">Useful Links</a> | 
-            <a href="#">Download</a>
+    <header class="header">
+        <div class="left">
+            <img src="logo.jpg" class="logo-img" alt="Logo">
+            <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif" alt="Nepal Flag">
+            <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
         </div>
-        <p>© 2026 Prem Raj Joshi - 9868827191</p>
+        <nav class="nav">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#education">Journey</a>
+            <a href="#work">Experience</a>
+            <a href="#feeds-footer">Contact</a>
+            <div class="datetime-container">
+                <div id="nepali-date">2083-01-13</div>
+                <div id="nepali-time">00:00:00</div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="chat-bot" onclick="toggleContact()">
+        <i class="fas fa-comment-dots"></i>
+        <span>Hello!</span>
     </div>
-</section>
 
-<script>
-    function closeModal() { document.getElementById("noticeModal").style.display = "none"; }
-    
-    function toggleContact() {
-        var panel = document.getElementById("contactPanel");
-        panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    }
+    <div id="contactPanel">
+        <h3 style="margin-top:0; color:#007bff;">Contact Dr. Joshi</h3>
+        <p><i class="fas fa-phone"></i> +977 9868827191</p>
+        <p><i class="fas fa-envelope"></i> drprem@example.com</p>
+        <p><i class="fab fa-instagram"></i> @the_prem.rajj</p>
+        <button onclick="toggleContact()" class="read-more-btn" style="width:100%; border-radius:5px;">Close</button>
+    </div>
 
-    function updateClock() {
-        const now = new Date();
-        const options = { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-        document.getElementById('nepali-time').textContent = new Intl.DateTimeFormat('en-US', options).format(now);
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    <section id="home">
+        <div class="slider-wrapper">
+            <div class="slider-overlay-text">Gallery: Photos Sliding Every 10s</div>
+        </div>
+    </section>
 
-    // Simple Slider Simulation (Logic only)
-    setInterval(() => {
-        console.log("Slider: Changing image every 10 seconds...");
-    }, 10000);
-</script>
+    <section id="about">
+        <div class="about-content">
+            <h2>About Me</h2>
+            <p>Hello! I am Dr. Prem Raj Joshi, a dedicated medical professional based in Nepal. I am passionate about providing quality healthcare and sharing medical knowledge to improve community well-being.</p>
+            <button class="read-more-btn">Read more</button>
+        </div>
+        <div class="about-photo-circle">
+            <img src="logo.jpg" alt="Dr. Prem Raj Joshi">
+        </div>
+    </section>
+
+    <section id="education">
+        <h2 style="margin-bottom: 30px;">Educational Journey</h2>
+        <div class="grid-layout">
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/800080/fff?text=MBBS"><p>MBBS Studies</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/6a0dad/fff?text=Residency"><p>Clinical Residency</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/4b0082/fff?text=Specialization"><p>Specialization</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/9370db/fff?text=Training"><p>Medical Training</p></div>
+        </div>
+    </section>
+
+    <section id="work">
+        <h2 style="margin-bottom: 30px;">Work Experience</h2>
+        <div class="grid-layout">
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/007bff/fff?text=Hospital+A"><p>Senior Consultant</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/0056b3/fff?text=Clinic+B"><p>Private Practice</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/3399ff/fff?text=Teaching"><p>Medical Educator</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/87ceeb/fff?text=Volunteering"><p>Community Health</p></div>
+        </div>
+    </section>
+
+    <section id="feeds-footer">
+        <div class="feeds-container">
+            <div class="feed-item"><i class="fab fa-youtube" style="color:#FF0000;"></i> YouTube Video</div>
+            <div class="feed-item"><i class="fab fa-facebook" style="color:#1877F2;"></i> Facebook Feed</div>
+            <div class="feed-item"><i class="fab fa-x-twitter" style="color:#000;"></i> X Feed</div>
+        </div>
+
+        <div class="footer-black">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms and Conditions</a> | 
+                <a href="#">Useful Links</a> | 
+                <a href="#">Download</a>
+            </div>
+            <p>© 2026 Prem Raj Joshi - 9868827191</p>
+        </div>
+    </section>
+
+    <script>
+        // --- POPUP LOGIC ---
+        function closeModal() {
+            document.getElementById("noticeModal").style.display = "none";
+        }
+
+        // --- CONTACT PANEL LOGIC ---
+        function toggleContact() {
+            const panel = document.getElementById("contactPanel");
+            panel.style.display = (panel.style.display === "block") ? "none" : "block";
+        }
+
+        // --- BIKRAM SAMBAT CLOCK LOGIC ---
+        function updateClock() {
+            const now = new Date();
+            const options = { 
+                timeZone: 'Asia/Kathmandu', 
+                hour: '2-digit', minute: '2-digit', second: '2-digit', 
+                hour12: true 
+            };
+            const timeStr = new Intl.DateTimeFormat('en-US', options).format(now);
+            document.getElementById('nepali-time').textContent = timeStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- SLIDER PLACEHOLDER LOGIC ---
+        let sliderInterval = 10000; // 10 seconds
+        setInterval(() => {
+            console.log("Slider rotating photos...");
+            // Here you would add code to swap image URLs
+        }, sliderInterval);
+    </script>
 
 </body>
 </html>
