@@ -18,7 +18,6 @@
         }
         
         body {
-            /* Enables the "Fit to Screen" snapping effect */
             scroll-snap-type: y mandatory;
             height: 100vh;
             overflow-y: scroll;
@@ -83,14 +82,13 @@
         .chat-bot i { font-size: 22px; color: #007bff; }
         .chat-bot span { font-size: 10px; font-weight: bold; color: #333; }
 
-        /* --- SECTION 1: HOME GALLERY (FULL SCREEN) --- */
+        /* --- SECTION 1: HOME GALLERY --- */
         #home { background: #000; padding: 0; }
         .slider-wrapper {
             width: 100%; height: 100%;
             background: url('https://via.placeholder.com/1920x1080/222/fff?text=Photo+Sliding+Every+10s') no-repeat center center/cover;
             display: flex; align-items: center; justify-content: center;
         }
-        .slider-overlay-text { background: rgba(0,0,0,0.4); color: white; padding: 20px; font-size: 2rem; border-radius: 10px; }
 
         /* --- SECTION 2: ABOUT ME --- */
         #about { background: #ffffff; flex-direction: row; gap: 60px; padding: 0 10%; }
@@ -105,9 +103,9 @@
         .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
         .read-more-btn { margin-top: 20px; padding: 12px 30px; background: #007bff; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
 
-        /* --- SECTION 3 & 4: JOURNEY & EXPERIENCE (Tall Images) --- */
-        #education { background: #F3E5F5; } /* Purple BG */
-        #work { background: #E1F5FE; } /* Sky Blue BG */
+        /* --- SECTION 3 & 4: JOURNEY & EXPERIENCE --- */
+        #education { background: #F3E5F5; }
+        #work { background: #E1F5FE; }
         
         .grid-layout { display: flex; justify-content: center; gap: 25px; width: 90%; }
         .tall-card { 
@@ -119,24 +117,25 @@
         .tall-card img { width: 100%; height: 400px; object-fit: cover; background: #ccc; }
         .tall-card p { padding: 15px; font-weight: bold; text-align: center; margin: 0; color: #444; }
 
-        /* --- SECTION 5: FEEDS & FOOTER (Fit on same page) --- */
+        /* --- SECTION 5: FEEDS & FOOTER --- */
         #feeds-footer { 
             height: 100vh; display: flex; flex-direction: column; 
-            justify-content: space-between; padding: 80px 0 0 0;
+            justify-content: space-between; padding: 100px 0 0 0;
         }
-        .feeds-container { display: flex; justify-content: center; gap: 30px; flex-grow: 1; align-items: center; }
+        .feeds-container { display: flex; justify-content: center; gap: 20px; flex-grow: 1; align-items: center; width: 95%; margin: 0 auto;}
+        
         .feed-item { 
-            width: 320px; height: 450px; /* Bigger height */
+            width: 380px; height: 500px; 
             border: 2px solid #333; border-radius: 15px;
-            background: white; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; font-weight: bold;
+            background: white; overflow: hidden;
+            display: flex; flex-direction: column;
         }
-        .feed-item i { font-size: 50px; margin-bottom: 15px; }
+        .feed-header { background: #f4f4f4; padding: 10px; text-align: center; font-weight: bold; border-bottom: 1px solid #333; }
 
         /* --- BLACK & WHITE FOOTER --- */
         .footer-black {
-            background: #111; color: white; width: 100%; padding: 30px;
-            text-align: center;
+            background: #111; color: white; width: 100%; padding: 25px;
+            text-align: center; margin-top: 20px;
         }
         .footer-links a { color: #bbb; margin: 0 15px; text-decoration: none; font-size: 14px; }
         .footer-links a:hover { color: white; }
@@ -148,29 +147,28 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1001; padding: 25px;
         }
 
-        /* --- RESPONSIVE ADJUSTMENTS --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            #about { flex-direction: column-reverse; text-align: center; gap: 30px; padding: 80px 20px; }
-            .about-content { text-align: center; }
-            .grid-layout { flex-wrap: wrap; overflow-y: auto; height: 80%; }
-            .tall-card { width: 45%; }
-            .feeds-container { flex-direction: column; gap: 10px; padding: 20px 0; }
-            .feed-item { width: 90%; height: 120px; flex-direction: row; gap: 20px; }
+            #about { flex-direction: column-reverse; text-align: center; gap: 30px; padding: 100px 20px; }
+            .feeds-container { flex-direction: column; overflow-y: auto; height: auto; }
+            .feed-item { width: 95%; height: 400px; margin-bottom: 15px; }
+            section { height: auto; min-height: 100vh; }
         }
     </style>
 </head>
 <body>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
 
     <div class="modal-overlay" id="noticeModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2>Notice</h2>
             <p>Hello, wonderful supporter!</p>
-            <p>Thank you for visiting! Please note that it is currently under construction and not yet finalized.</p>
-            <p>Our team is working hard and will be live soon.</p>
+            <p>Please note that this site is currently under construction.</p>
             <p>You Can Contact Us on <br>
                <a href="https://www.instagram.com/the_prem.rajj" target="_blank" class="ig-link-popup" style="color:red">Instagram</a> <br>
-               For more Informations
             </p>
         </div>
     </div>
@@ -178,7 +176,7 @@
     <header class="header">
         <div class="left">
             <img src="logo.jpg" class="logo-img" alt="Logo">
-            <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif" alt="Nepal Flag">
+            <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif">
             <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
         </div>
         <nav class="nav">
@@ -202,21 +200,18 @@
     <div id="contactPanel">
         <h3 style="margin-top:0; color:#007bff;">Contact Dr. Joshi</h3>
         <p><i class="fas fa-phone"></i> +977 9868827191</p>
-        <p><i class="fas fa-envelope"></i> drprem@example.com</p>
         <p><i class="fab fa-instagram"></i> @the_prem.rajj</p>
         <button onclick="toggleContact()" class="read-more-btn" style="width:100%; border-radius:5px;">Close</button>
     </div>
 
     <section id="home">
-        <div class="slider-wrapper">
-            <div class="slider-overlay-text">Gallery: Photos Sliding Every 10s</div>
-        </div>
+        <div class="slider-wrapper"></div>
     </section>
 
     <section id="about">
         <div class="about-content">
             <h2>About Me</h2>
-            <p>Hello! I am Dr. Prem Raj Joshi, a dedicated medical professional based in Nepal. I am passionate about providing quality healthcare and sharing medical knowledge to improve community well-being.</p>
+            <p>I am Dr. Prem Raj Joshi, dedicated to healthcare and medical excellence in Nepal.</p>
             <button class="read-more-btn">Read more</button>
         </div>
         <div class="about-photo-circle">
@@ -227,73 +222,64 @@
     <section id="education">
         <h2 style="margin-bottom: 30px;">Educational Journey</h2>
         <div class="grid-layout">
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/800080/fff?text=MBBS"><p>MBBS Studies</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/6a0dad/fff?text=Residency"><p>Clinical Residency</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/800080/fff?text=MBBS"><p>MBBS</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/6a0dad/fff?text=Residency"><p>Residency</p></div>
             <div class="tall-card"><img src="https://via.placeholder.com/300x500/4b0082/fff?text=Specialization"><p>Specialization</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/9370db/fff?text=Training"><p>Medical Training</p></div>
         </div>
     </section>
 
     <section id="work">
         <h2 style="margin-bottom: 30px;">Work Experience</h2>
         <div class="grid-layout">
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/007bff/fff?text=Hospital+A"><p>Senior Consultant</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/0056b3/fff?text=Clinic+B"><p>Private Practice</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/3399ff/fff?text=Teaching"><p>Medical Educator</p></div>
-            <div class="tall-card"><img src="https://via.placeholder.com/300x500/87ceeb/fff?text=Volunteering"><p>Community Health</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/007bff/fff?text=Hospital"><p>Hospital Practice</p></div>
+            <div class="tall-card"><img src="https://via.placeholder.com/300x500/0056b3/fff?text=Teaching"><p>Medical Educator</p></div>
         </div>
     </section>
 
     <section id="feeds-footer">
         <div class="feeds-container">
-            <div class="feed-item"><i class="fab fa-youtube" style="color:#FF0000;"></i> YouTube Video</div>
-            <div class="feed-item"><i class="fab fa-facebook" style="color:#1877F2;"></i> Facebook Feed</div>
-            <div class="feed-item"><i class="fab fa-x-twitter" style="color:#000;"></i> X Feed</div>
+            
+            <div class="feed-item">
+                <div class="feed-header"><i class="fab fa-youtube" style="color:red"></i> YouTube Video</div>
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/S7E1amcCGUU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+
+            <div class="feed-item">
+                <div class="feed-header"><i class="fab fa-facebook" style="color:#1877F2"></i> Facebook Feed</div>
+                <div class="fb-page" data-href="https://www.facebook.com/share/17TLFwFPH1/" data-tabs="timeline" data-width="380" data-height="450" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+            </div>
+
+            <div class="feed-item">
+                <div class="feed-header"><i class="fab fa-x-twitter"></i> X Updates</div>
+                <div style="overflow-y: scroll; height: 100%;">
+                    <a class="twitter-timeline" href="https://twitter.com/PRJtweets2090?ref_src=twsrc%5Etfw">Tweets by PRJtweets2090</a> 
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </div>
+
         </div>
 
         <div class="footer-black">
             <div class="footer-links">
-                <a href="#">Privacy Policy</a> | 
-                <a href="#">Terms and Conditions</a> | 
-                <a href="#">Useful Links</a> | 
-                <a href="#">Download</a>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Links</a>
             </div>
             <p>© 2026 Prem Raj Joshi - 9868827191</p>
         </div>
     </section>
 
     <script>
-        // --- POPUP LOGIC ---
-        function closeModal() {
-            document.getElementById("noticeModal").style.display = "none";
-        }
-
-        // --- CONTACT PANEL LOGIC ---
+        function closeModal() { document.getElementById("noticeModal").style.display = "none"; }
         function toggleContact() {
             const panel = document.getElementById("contactPanel");
             panel.style.display = (panel.style.display === "block") ? "none" : "block";
         }
-
-        // --- BIKRAM SAMBAT CLOCK LOGIC ---
         function updateClock() {
             const now = new Date();
-            const options = { 
-                timeZone: 'Asia/Kathmandu', 
-                hour: '2-digit', minute: '2-digit', second: '2-digit', 
-                hour12: true 
-            };
-            const timeStr = new Intl.DateTimeFormat('en-US', options).format(now);
-            document.getElementById('nepali-time').textContent = timeStr;
+            const options = { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            document.getElementById('nepali-time').textContent = new Intl.DateTimeFormat('en-US', options).format(now);
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        // --- SLIDER PLACEHOLDER LOGIC ---
-        let sliderInterval = 10000; // 10 seconds
-        setInterval(() => {
-            console.log("Slider rotating photos...");
-            // Here you would add code to swap image URLs
-        }, sliderInterval);
     </script>
 
 </body>
