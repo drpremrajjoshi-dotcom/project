@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Joshi - Site Manager</title>
+    <style>
+        :root { --primary: #007bff; --bg: #f4f7f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .admin-container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .login-gate { text-align: center; padding: 50px 0; }
+        .section-box { border: 1px solid #ddd; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+        .section-box h3 { margin-top: 0; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 14px; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px; }
+        button { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
+        button:hover { opacity: 0.9; }
+        .hidden { display: none; }
+        .status-msg { padding: 10px; margin-top: 10px; border-radius: 5px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h1><i class="fas fa-tools"></i> Website Control Center</h1>
+
+    <div id="loginGate" class="login-gate">
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button onclick="checkAuth()">Enter Panel</button>
+    </div>
+
+    <div id="mainTools" class="hidden">
+        <input type="password" id="ghToken" placeholder="Enter GitHub Personal Access Token (Hidden)" style="background: #fffbe6;">
+        <div id="status" class="status-msg"></div>
+
+        <div class="section-box">
+            <h3>1. Header & Main Slider</h3>
+            <label>Update Header Logo (logo.jpg)</label>
+            <input type="file" id="headerLogo">
+            <button onclick="uploadFile('headerLogo', 'logo.jpg')">Update Logo</button>
+            
+            <label style="margin-top:20px;">Main Slider Welcome Image</label>
+            <input type="file" id="sliderImg">
+            <button onclick="uploadFile('sliderImg', 'slider1.jpg')">Update Slider Image</button>
+        </div>
+
+        <div class="section-box">
+            <h3>2. About Section</h3>
+            <label>About Photo (Circular)</label>
+            <input type="file" id="aboutPhoto">
+            <button onclick="uploadFile('aboutPhoto', 'about-me.jpg')">Update Photo</button>
+            
+            <label>About Description Text</label>
+            <textarea id="aboutText" rows="3">Dr. Prem Raj Joshi - Dedicated Medical Professional.</textarea>
+            <button onclick="updateText('aboutText')">Save Text</button>
+        </div>
+
+        <div class="section-box">
+            <h3>3. Education & Work Grid</h3>
+            <label>Select Box to Update</label>
+            <select id="boxTarget">
+                <option value="edu1">Education Box 1</option>
+                <option value="edu2">Education Box 2</option>
+                <option value="work1">Experience Box 1</option>
+            </select>
+            <label>Box Image</label>
+            <input type="file" id="boxFile">
+            <label>Box Text</label>
+            <input type="text" id="boxText" placeholder="Degree/Role Name">
+            <button onclick="updateBox()">Update Box Content</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const REPO = "drpremrajjoshi-dotcom/project";
+    const BRANCH = "master";
+
+    function checkAuth() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+        if(u === "admin" && p === "prj100") {
+            document.getElementById('loginGate').classList.add('hidden');
+            document.getElementById('mainTools').classList.remove('hidden');
+        } else { alert("Wrong Credentials"); }
+    }
+
+    async function uploadFile(inputId, targetName) {
+        const token = document.getElementById('ghToken').value;
+        const file = document.getElementById(inputId).files[0];
+        if (!token || !file) return alert("Missing Token or File!");
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async () => {
+            const content = reader.result.split(',')[1];
+            // Get SHA if file exists to overwrite
+            const getUrl = `https://api.github.com/repos/${REPO}/contents/${targetName}`;
+            let sha = "";
+            try {
+                const res = await fetch(getUrl, { headers: { 'Authorization': `token ${token}` }});
+                if(res.ok) { const data = await res.json(); sha = data.sha; }
+            } catch (e) {}
+
+            const response = await fetch(getUrl, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: `Admin update: ${targetName}`,
+                    content: content,
+                    sha: sha,
+                    branch: BRANCH
+                })
+            });
+
+            showStatus(response.ok);
+        };
+    }
+
+    function showStatus(success) {
+        const s = document.getElementById('status');
+        s.innerText = success ? "✅ Success! Updating..." : "❌ Error! Check Token/Permissions";
+        s.style.background = success ? "#d4edda" : "#f8d7da";
+    }
+
+    // Logic for updating text/JSON would go here following the same fetch(PUT) pattern
+</script>
+</body>
+</html>
