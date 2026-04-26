@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dr. Prem Raj Joshi</title>
 
+<!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* ================= BODY ================= */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     scroll-behavior: smooth;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 .header {
     position: sticky;
     top: 0;
@@ -84,7 +84,7 @@ body {
     width: 100%;
 }
 
-/* SOCIAL */
+/* SOCIAL ICONS (FIXED PROPER COLORS) */
 .social {
     display: flex;
     align-items: center;
@@ -94,18 +94,20 @@ body {
 .social a {
     margin-left: 10px;
     font-size: 18px;
-    transition: 0.3s;
+    text-decoration: none;
 }
 
-/* COLORS */
-.facebook { color: #1877F2; }
-.instagram { color: #E4405F; }
-.tiktok { color: #000; }
-.twitter { color: #1DA1F2; }
-.youtube { color: #FF0000; }
+/* ICON COLORS */
+.social .facebook i { color: #1877F2; }
+.social .instagram i { color: #E4405F; }
+.social .tiktok i { color: #000000; }
+.social .twitter i { color: #000000; }
+.social .youtube i { color: #FF0000; }
 
-.social a:hover {
+/* hover */
+.social a i:hover {
     transform: scale(1.2);
+    transition: 0.3s;
 }
 
 /* DATE TIME */
@@ -123,7 +125,7 @@ body {
     cursor: pointer;
 }
 
-/* ================= MOBILE SLIDE MENU ================= */
+/* MOBILE SLIDE MENU */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -161,15 +163,15 @@ body {
     }
 }
 
-/* ================= HERO SECTION ================= */
+/* HERO */
 .hero {
     height: 85vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    flex-direction: column;
     background: linear-gradient(to right, #f5f7fa, #e4ecf7);
+    text-align: center;
 }
 
 .hero img {
@@ -188,7 +190,7 @@ body {
     color: gray;
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 section {
     padding: 60px 20px;
     text-align: center;
@@ -226,20 +228,31 @@ section {
 
         <!-- SOCIAL -->
         <div class="social">
-            <a class="facebook" href="https://www.facebook.com/share/17TLFwFPH1/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a class="instagram" href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a class="tiktok" href="https://www.tiktok.com/@prejo11" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a class="twitter" href="https://x.com/PRJtweets2090" target="_blank"><i class="fab fa-x-twitter"></i></a>
-            <a class="youtube" href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" target="_blank"><i class="fab fa-youtube"></i></a>
-        </div>
 
-        <!-- DATE TIME -->
-        <div class="datetime">
-            <div id="bsDate"></div>
-            <div id="time"></div>
+            <a class="facebook" href="https://www.facebook.com/share/17TLFwFPH1/" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a class="instagram" href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <a class="tiktok" href="https://www.tiktok.com/@prejo11" target="_blank">
+                <i class="fab fa-tiktok"></i>
+            </a>
+
+            <a class="twitter" href="https://x.com/PRJtweets2090" target="_blank">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+
+            <a class="youtube" href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+
         </div>
 
     </nav>
+
 </header>
 
 <!-- HERO -->
@@ -256,30 +269,16 @@ section {
 
 <script>
 
-/* MENU */
+// MENU TOGGLE
 function toggleMenu() {
     document.getElementById("navMenu").classList.toggle("active");
 }
 
-/* HEADER SCROLL EFFECT */
+// HEADER SHRINK
 window.addEventListener("scroll", () => {
     document.getElementById("header")
     .classList.toggle("scrolled", window.scrollY > 50);
 });
-
-/* TIME */
-function updateTime() {
-    const now = new Date();
-    document.getElementById("time").innerText = now.toLocaleTimeString();
-
-    // Simple BS-style placeholder (approx)
-    const bsYear = now.getFullYear() + 57; // rough conversion
-    document.getElementById("bsDate").innerText =
-        "BS " + bsYear + " / " + now.toLocaleDateString();
-}
-
-setInterval(updateTime, 1000);
-updateTime();
 
 </script>
 
