@@ -4,212 +4,136 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dr. Prem Raj Joshi</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    scroll-behavior: smooth;
-}
-
-/* --- POPUP MODAL STYLES --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Highest priority */
-}
-
-.modal-content {
-    background: linear-gradient(135deg, #ff4b2b, #2b67ff); /* Red-Blue Gradient */
-    width: 400px; /* 4x4 feel */
-    height: 500px;
-    border-radius: 15px;
-    position: relative;
-    padding: 30px;
-    box-sizing: border-box;
-    color: white;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    line-height: 1;
-}
-
-.close-btn:hover {
-    color: #ddd;
-}
-
-.modal-content h2 {
-    margin-top: 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-bottom: 2px solid rgba(255,255,255,0.3);
-    padding-bottom: 10px;
-}
-
-.modal-content p {
-    font-size: 15px;
-    line-height: 1.5;
-}
-
-.ig-link {
-    color: #ff0000; /* Red Instagram text */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.ig-link:hover {
-    text-decoration: underline;
-}
-
-/* --- HEADER & REST OF PAGE --- */
-.header {
-    position: sticky;
-    top: 0;
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    z-index: 1000;
-    transition: 0.3s;
-}
-
-.header.scrolled {
-    padding: 6px 20px;
-}
-
-.left {
-    display: flex;
-    align-items: center;
-}
-
-.logo-img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.flag-gif {
-    width: 30px;
-    height: auto;
-    margin-left: 10px;
-}
-
-.name-main {
-    margin-left: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #222;
-}
-
-.nav {
-    display: flex;
-    align-items: center;
-}
-
-.nav a {
-    margin: 0 8px;
-    text-decoration: none;
-    color: #222;
-    font-weight: 500;
-    position: relative;
-}
-
-.social {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-
-.social a {
-    margin-left: 10px;
-    font-size: 18px;
-}
-
-.social .facebook i { color: #1877F2; }
-.social .instagram i { color: #E4405F; }
-.social .tiktok i { color: #000000; }
-.social .twitter i { color: #000000; }
-.social .youtube i { color: #FF0000; }
-
-.datetime-container {
-    margin-left: 15px;
-    font-size: 13px;
-    color: #004a99;
-    font-weight: bold;
-    text-align: right;
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .menu-toggle { display: block; }
-    .nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: 260px;
-        background: white;
-        flex-direction: column;
-        padding: 60px 20px;
-        transition: 0.3s;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    /* GLOBAL & SNAP SCROLLING */
+    * { box-sizing: border-box; }
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
     }
-    .nav.active { right: 0; }
-    .nav a { margin: 12px 0; }
-}
+    
+    /* Enables the "fit to screen" snapping effect */
+    body {
+        scroll-snap-type: y mandatory;
+        height: 100vh;
+        overflow-y: scroll;
+    }
 
-.hero {
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(to right, #f5f7fa, #e4ecf7);
-    text-align: center;
-}
+    section {
+        height: 100vh;
+        width: 100%;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px;
+        position: relative;
+    }
 
-.hero img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
+    /* POPUP MODAL (Same as before) */
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex; justify-content: center; align-items: center;
+        z-index: 10000;
+    }
+    .modal-content {
+        background: linear-gradient(135deg, #ff4b2b, #2b67ff);
+        width: 400px; height: 400px; border-radius: 15px;
+        position: relative; padding: 30px; color: white;
+        text-align: center; display: flex; flex-direction: column; justify-content: center;
+    }
+    .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; }
+    .ig-link { color: #ff0000; text-decoration: none; font-weight: bold; }
 
-section { padding: 60px 20px; text-align: center; }
+    /* HEADER (Kept Same) */
+    .header {
+        position: fixed; top: 0; width: 100%;
+        background: white; display: flex; justify-content: space-between;
+        align-items: center; padding: 12px 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000;
+    }
+    .left { display: flex; align-items: center; }
+    .logo-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+    .flag-gif { width: 30px; margin-left: 10px; }
+    .name-main { margin-left: 12px; font-size: 16px; font-weight: bold; text-decoration: none; color: #222; }
+    .nav { display: flex; align-items: center; }
+    .nav a { margin: 0 8px; text-decoration: none; color: #222; font-weight: 500; }
+    .social a { margin-left: 10px; font-size: 18px; }
+    .datetime-container { margin-left: 15px; font-size: 11px; color: #004a99; text-align: right; }
+
+    /* CHAT BOT SYMBOL */
+    .chat-bot {
+        position: fixed; bottom: 30px; right: 30px;
+        background: white; border: 2px solid #007bff;
+        border-radius: 50%; width: 60px; height: 60px;
+        display: flex; flex-direction: column; justify-content: center;
+        align-items: center; cursor: pointer; z-index: 999;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .chat-bot i { font-size: 20px; color: #007bff; }
+    .chat-bot span { font-size: 10px; font-weight: bold; }
+
+    /* SECTION 1: PHOTO SLIDER */
+    #home { background: #f9f9f9; }
+    .slider-container { width: 80%; height: 60%; background: #ddd; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+
+    /* SECTION 2: ABOUT ME */
+    #about { background: white; flex-direction: row; justify-content: space-around; }
+    .about-text { width: 50%; text-align: left; }
+    .about-photo-circle { width: 300px; height: 300px; border-radius: 50%; border: 5px solid #007bff; overflow: hidden; }
+    .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
+    .read-more { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+
+    /* SECTION 3: EDUCATIONAL JOURNEY (Purple) */
+    #education { background: #E6E6FA; } /* Light Purple */
+    .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; width: 90%; }
+    .card { background: white; padding: 10px; border: 1px solid #ccc; text-align: center; }
+    .card img { width: 100%; height: 100px; object-fit: cover; background: #eee; }
+
+    /* SECTION 4: WORK EXPERIENCE (Sky Blue) */
+    #work { background: #E0F7FA; }
+
+    /* SECTION 5: FEEDS & FOOTER (Fit together) */
+    #feeds-footer { 
+        height: 100vh; display: flex; flex-direction: column; 
+        justify-content: space-between; padding-bottom: 0;
+    }
+    .feeds-row { display: flex; justify-content: space-around; width: 100%; margin-top: auto; }
+    .feed-box { width: 250px; height: 250px; border: 2px solid #333; display: flex; align-items: center; justify-content: center; background: #fff; }
+
+    /* FOOTER (Black & White) */
+    .footer-panel {
+        background: #000; color: #fff; width: 100%; padding: 20px;
+        margin-top: 40px; text-align: center;
+    }
+    .footer-links a { color: white; margin: 0 10px; text-decoration: none; font-size: 14px; }
+
+    /* CONTACT PANEL (Hidden by default) */
+    #contactPanel {
+        display: none; position: fixed; bottom: 100px; right: 30px;
+        width: 300px; background: white; border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 1000; padding: 20px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        #about { flex-direction: column-reverse; }
+        .about-text { width: 100%; text-align: center; }
+        .about-photo-circle { width: 200px; height: 200px; }
+        .feeds-row { flex-direction: column; align-items: center; gap: 10px; }
+        .feed-box { width: 80%; height: 150px; }
+        .nav { display: none; } /* Simplified for mobile example */
+    }
 </style>
 </head>
-
 <body>
 
 <div class="modal-overlay" id="noticeModal">
@@ -217,42 +141,23 @@ section { padding: 60px 20px; text-align: center; }
         <span class="close-btn" onclick="closeModal()">&times;</span>
         <h2>Notice</h2>
         <p>Hello, wonderful supporter!</p>
-        <p>Thank you for visiting the site! Please note that it is currently under construction and not yet finalized.</p>
-        <p>Our dedicated team is working hard and will be fully live as soon as possible. Thank you immensely for your patience and ongoing support.</p>
+        <p>Thank you for visiting the site! Please note that it is currently under construction.</p>
         <p>With heartfelt gratitude,</p>
-        <p>You Can Contact Us on 
-            <a href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank" class="ig-link">Instagram</a> 
-            For more Informations
-        </p>
+        <p>You Can Contact Us on <a href="https://www.instagram.com/the_prem.rajj" target="_blank" class="ig-link">Instagram</a></p>
     </div>
 </div>
 
-<header class="header" id="header">
+<header class="header">
     <div class="left">
-        <a href="#"><img src="logo.jpg" class="logo-img" alt="logo"></a>
-        <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif" alt="Nepal Flag">
+        <img src="logo.jpg" class="logo-img" alt="logo">
+        <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif">
         <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
     </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-    <nav class="nav" id="navMenu">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Portfolio</a>
-        <a href="#">Services</a>
-        <a href="#">Gallery</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact</a>
-
-        <div class="social">
-            <a class="facebook" href="https://www.facebook.com/share/17TLFwFPH1/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a class="instagram" href="https://www.instagram.com/the_prem.rajj?igsh=cGZ2a3R2YjBsaWZo" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a class="tiktok" href="https://www.tiktok.com/@prejo11" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a class="twitter" href="https://x.com/PRJtweets2090" target="_blank"><i class="fab fa-x-twitter"></i></a>
-            <a class="youtube" href="https://youtube.com/@premrajjoshi11?si=nkaZ8EhjR5NGtwi0" target="_blank"><i class="fab fa-youtube"></i></a>
-        </div>
-
+    <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#education">Journey</a>
+        <a href="#feeds-footer">Contact</a>
         <div class="datetime-container">
             <div id="nepali-date">2083-01-13</div>
             <div id="nepali-time">00:00:00</div>
@@ -260,42 +165,94 @@ section { padding: 60px 20px; text-align: center; }
     </nav>
 </header>
 
-<div class="hero">
-    <img src="logo.jpg" alt="profile">
-    <h1>Dr. Prem Raj Joshi</h1>
-    <p>Medical Professional | Nepal</p>
+<div class="chat-bot" onclick="toggleContact()">
+    <i class="fas fa-comment-dots"></i>
+    <span>Hello!</span>
 </div>
 
-<section><h2>About Content Here</h2></section>
+<div id="contactPanel">
+    <h3>Contact Me</h3>
+    <p>Email: example@mail.com</p>
+    <p>Phone: 9868827191</p>
+    <button onclick="toggleContact()">Close</button>
+</div>
+
+<section id="home">
+    <h2>Gallery</h2>
+    <div class="slider-container">
+        <p>[ Photos Sliding Itself - 10s Interval ]</p>
+    </div>
+</section>
+
+<section id="about">
+    <div class="about-text">
+        <h1>About Me</h1>
+        <p>Your professional bio goes here. This text explains your background and medical expertise.</p>
+        <button class="read-more">Read More</button>
+    </div>
+    <div class="about-photo-circle">
+        <img src="logo.jpg" alt="Dr. Joshi">
+    </div>
+</section>
+
+<section id="education">
+    <h2>Educational Journey</h2>
+    <div class="grid-container">
+        <div class="card"><img src=""> <p>MBBS - Phase 1</p></div>
+        <div class="card"><img src=""> <p>Specialization</p></div>
+        <div class="card"><img src=""> <p>Training</p></div>
+        <div class="card"><img src=""> <p>Workshop</p></div>
+    </div>
+</section>
+
+<section id="work">
+    <h2>Work Experience</h2>
+    <div class="grid-container">
+        <div class="card"><p>Hospital A</p></div>
+        <div class="card"><p>Clinic B</p></div>
+        <div class="card"><p>Research C</p></div>
+        <div class="card"><p>Consultant D</p></div>
+    </div>
+</section>
+
+<section id="feeds-footer">
+    <div class="feeds-row">
+        <div class="feed-box"><i class="fab fa-youtube"></i> Video Feed</div>
+        <div class="feed-box"><i class="fab fa-facebook"></i> Facebook Feed</div>
+        <div class="feed-box"><i class="fab fa-x-twitter"></i> X Feed</div>
+    </div>
+
+    <div class="footer-panel">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms and Conditions</a> | 
+            <a href="#">Useful Links</a> | 
+            <a href="#">Download</a>
+        </div>
+        <p>© 2026 Prem Raj Joshi - 9868827191</p>
+    </div>
+</section>
 
 <script>
-// CLOSE POPUP
-function closeModal() {
-    document.getElementById("noticeModal").style.display = "none";
-}
+    function closeModal() { document.getElementById("noticeModal").style.display = "none"; }
+    
+    function toggleContact() {
+        var panel = document.getElementById("contactPanel");
+        panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    }
 
-// MENU TOGGLE
-function toggleMenu() {
-    document.getElementById("navMenu").classList.toggle("active");
-}
+    function updateClock() {
+        const now = new Date();
+        const options = { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        document.getElementById('nepali-time').textContent = new Intl.DateTimeFormat('en-US', options).format(now);
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-// HEADER SHRINK
-window.addEventListener("scroll", () => {
-    document.getElementById("header").classList.toggle("scrolled", window.scrollY > 50);
-});
-
-// LIVE TIME
-function updateClock() {
-    const now = new Date();
-    const options = { 
-        timeZone: 'Asia/Kathmandu', 
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true 
-    };
-    const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
-    document.getElementById('nepali-time').textContent = timeString;
-}
-setInterval(updateClock, 1000);
-updateClock();
+    // Simple Slider Simulation (Logic only)
+    setInterval(() => {
+        console.log("Slider: Changing image every 10 seconds...");
+    }, 10000);
 </script>
 
 </body>
