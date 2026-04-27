@@ -59,14 +59,14 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000;
         }
         .left { display: flex; align-items: center; }
-        .logo-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
         
-        /* 2. Flag and Name Position Adjustments */
+        /* Updated Flag Style */
+        .flag-gif { width: 40px; height: 40px; margin-left: 15px; object-fit: contain; }
+        
         .name-container { display: flex; flex-direction: column; margin-left: 10px; }
-        .name-row { display: flex; align-items: center; }
-        .flag-gif { width: 25px; margin-left: 8px; }
-        .name-main { font-size: 16px; font-weight: bold; text-decoration: none; color: #222; }
-        .credentials { font-size: 12px; color: red; font-weight: normal; margin-top: -2px; }
+        .name-main { font-size: 16px; font-weight: bold; text-decoration: none; color: #222; line-height: 1.2; }
+        .credentials { font-size: 12px; color: #1877F2; font-weight: normal; margin-top: 2px; }
         
         .nav { display: flex; align-items: center; flex-wrap: wrap; }
         .nav a { margin: 0 8px; text-decoration: none; color: #333; font-weight: 500; font-size: 14px; transition: 0.3s; }
@@ -91,7 +91,7 @@
             align-items: center; cursor: pointer; z-index: 999;
         }
 
-        /* --- SECTION 1: HOME (Welcome with fsu.jpg) --- */
+        /* --- SECTION 1: HOME --- */
         #home { 
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                         url('images/fsu.jpg') no-repeat center center; 
@@ -158,13 +158,13 @@
     <header class="header">
         <div class="left">
             <img src="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg" class="logo-img" alt="Logo">
+            
             <div class="name-container">
-                <div class="name-row">
-                    <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
-                    <img src="images/Flag_of_Nepal.gif" class="flag-gif">
-                </div>
-                <div class="credentials">BAMS, IOM, TU</div>
+                <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
+                <span class="credentials">BAMS, IOM, TU</span>
             </div>
+
+            <img src="images/Flag_of_Nepal.gif" class="flag-gif">
         </div>
 
         <nav class="nav">
@@ -259,7 +259,6 @@
             panel.style.display = (panel.style.display === "block") ? "none" : "block";
         }
 
-        // --- DATE & TIME LOGIC ---
         let currentYear = 2083;
         let currentMonth = 12;
         let currentDay = 14;
