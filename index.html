@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        /* --- CORE STYLES & SNAP SCROLLING --- */
+        /* --- CORE STYLES --- */
         * { box-sizing: border-box; }
         html, body {
             margin: 0;
@@ -36,21 +36,6 @@
             padding: 80px 20px;
         }
 
-        /* --- NOTICE POPUP --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-        }
-        .modal-content {
-            background: linear-gradient(135deg, #ff4b2b, #2b67ff);
-            width: 90%; max-width: 400px; padding: 30px; border-radius: 15px;
-            position: relative; color: white; text-align: center;
-        }
-        .close-btn { position: absolute; top: 10px; right: 20px; font-size: 28px; cursor: pointer; }
-
         /* --- HEADER & NAV --- */
         .header {
             position: fixed; top: 0; width: 100%;
@@ -60,228 +45,181 @@
         }
         .left { display: flex; align-items: center; }
         .logo-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-        
-        /* Updated Flag Style */
         .flag-gif { width: 40px; height: 40px; margin-left: 15px; object-fit: contain; }
         
         .name-container { display: flex; flex-direction: column; margin-left: 10px; }
         .name-main { font-size: 16px; font-weight: bold; text-decoration: none; color: #222; line-height: 1.2; }
-        .credentials { font-size: 12px; color: #1877F2; font-weight: normal; margin-top: 2px; }
         
-        .nav { display: flex; align-items: center; flex-wrap: wrap; }
+        /* VIBGYOR ANIMATION FOR CREDENTIALS */
+        .credentials { 
+            font-size: 12px; 
+            font-weight: bold; 
+            margin-top: 2px;
+            animation: vibgyorShift 35s infinite; /* 5 seconds per color x 7 colors */
+        }
+
+        @keyframes vibgyorShift {
+            0%, 14% { color: #9400D3; }   /* Violet */
+            15%, 28% { color: #4B0082; }  /* Indigo */
+            29%, 42% { color: #0000FF; }  /* Blue */
+            43%, 56% { color: #00FF00; }  /* Green */
+            57%, 70% { color: #FFFF00; }  /* Yellow */
+            71%, 84% { color: #FF7F00; }  /* Orange */
+            85%, 100% { color: #FF0000; } /* Red */
+        }
+        
         .nav a { margin: 0 8px; text-decoration: none; color: #333; font-weight: 500; font-size: 14px; transition: 0.3s; }
         .nav a:hover { color: #007bff; }
         
         .header-socials { display: flex; gap: 12px; margin-left: 15px; border-left: 1px solid #ddd; padding-left: 15px; }
-        .header-socials a { font-size: 18px; transition: transform 0.2s; }
-        .header-socials a:hover { transform: scale(1.2); }
         .fa-facebook { color: #1877F2; }
-        .fa-instagram { color: #E4405F; }
-        .fa-x-twitter { color: #000000; }
-        .fa-youtube { color: #FF0000; }
 
-        .datetime-container { margin-left: 15px; font-size: 11px; color: #004a99; font-weight: bold; text-align: right; line-height: 1.2; }
-
-        /* --- CHATBOT --- */
-        .chat-bot {
-            position: fixed; bottom: 20px; right: 20px;
-            background: white; border: 2px solid #007bff;
-            border-radius: 50%; width: 60px; height: 60px;
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; cursor: pointer; z-index: 999;
+        /* --- 10-SECOND PAGE TURN SLIDER --- */
+        #home { position: relative; overflow: hidden; background: #000; color: white; text-align: center; }
+        .slider-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        
+        .slide {
+            position: absolute; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transform: translateX(100%) rotateY(-20deg);
+            animation: pageTurn 30s infinite; /* 10s per slide for 3 slides */
+            filter: brightness(0.5);
         }
 
-        /* --- SECTION 1: HOME --- */
-        #home { 
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('images/fsu.jpg') no-repeat center center; 
-            background-size: cover;
-            color: white; 
-            text-align: center;
+        /* Slides using your 'slider images' folder */
+        .slide:nth-child(1) { background-image: url('slider images/1.jpg'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('slider images/2.jpg'); animation-delay: 10s; }
+        .slide:nth-child(3) { background-image: url('slider images/3.jpg'); animation-delay: 20s; }
+
+        @keyframes pageTurn {
+            0% { opacity: 0; transform: translateX(100%) rotateY(-20deg); }
+            5% { opacity: 1; transform: translateX(0) rotateY(0deg); }
+            30% { opacity: 1; transform: translateX(0) rotateY(0deg); }
+            35% { opacity: 0; transform: translateX(-100%) rotateY(20deg); }
+            100% { opacity: 0; }
         }
-        #home h1 { font-size: 3rem; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
-        #home p { font-size: 1.2rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
 
-        /* --- OTHER SECTIONS --- */
-        #about { background: #ffffff; flex-direction: row; flex-wrap: wrap; gap: 40px; }
-        .about-content { flex: 1; min-width: 300px; text-align: left; }
-        .about-photo-circle { width: 280px; height: 280px; border-radius: 50%; border: 6px solid #007bff; overflow: hidden; }
-        .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        /* TEXT ONLY ON FIRST SLIDE */
+        .home-content { 
+            z-index: 10; 
+            opacity: 0; 
+            animation: welcomeFade 30s infinite; 
+        }
+        @keyframes welcomeFade {
+            0%, 5% { opacity: 0; transform: translateY(20px); }
+            10%, 25% { opacity: 1; transform: translateY(0); }
+            30%, 100% { opacity: 0; }
+        }
 
-        .empty-grid { 
+        /* --- CONTENT GRIDS --- */
+        .content-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 20px; width: 90%; max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; width: 90%; max-width: 1100px;
         }
-        .empty-card { 
-            height: 300px; background: rgba(255, 255, 255, 0.6); 
-            border: 2px dashed #999; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
+        .item-card { 
+            background: white; padding: 25px; border-radius: 12px; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-decoration: none; color: #333;
+            transition: 0.3s; border: 1px solid #eee;
+        }
+        .item-card:hover { transform: translateY(-5px); border-color: #1877F2; }
+        .item-card i { font-size: 40px; color: #1877F2; margin-bottom: 15px; }
+
+        /* --- FOOTER (STATIC) --- */
+        .footer-static {
+            background: #111; color: white; width: 100%; 
+            padding: 40px 20px; text-align: center;
+            margin-top: auto; /* Ensures it sits at the very bottom */
         }
 
-        .feeds-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; width: 95%; margin: auto;
-        }
-        .feed-item { height: 450px; border: 1px solid #ddd; border-radius: 15px; background: white; overflow: hidden; }
-
-        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
-            .header { justify-content: center; padding: 10px; }
-            .nav { justify-content: center; margin-top: 10px; width: 100%; }
-            .header-socials { margin: 10px 0; border-left: none; padding-left: 0; }
-            .datetime-container { text-align: center; width: 100%; margin: 5px 0; }
-            #about { flex-direction: column-reverse; text-align: center; }
-            .about-content { text-align: center; }
-            #home h1 { font-size: 2.2rem; }
-        }
-
-        #contactPanel {
-            display: none; position: fixed; bottom: 90px; right: 20px;
-            width: 280px; background: white; border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1001; padding: 20px;
+            .header { justify-content: center; }
+            .nav { margin-top: 10px; width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="modal-overlay" id="noticeModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Notice</h2>
-            <p>Site under construction.</p>
-            <p><a href="https://www.instagram.com/the_prem.rajj" target="_blank" style="color:red; font-weight:bold;">Instagram</a></p>
-        </div>
-    </div>
-
     <header class="header">
         <div class="left">
             <img src="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg" class="logo-img" alt="Logo">
-            
             <div class="name-container">
                 <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
                 <span class="credentials">BAMS, IOM, TU</span>
             </div>
-
             <img src="images/Flag_of_Nepal.gif" class="flag-gif">
         </div>
 
         <nav class="nav">
             <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#education">Journey</a>
+            <a href="#education">Education</a>
             <a href="#work">Experience</a>
-            <a href="#blog">Blog</a>
-            <a href="#feeds-footer">Contact</a>
-            
+            <a href="#gallery">Gallery</a>
             <div class="header-socials">
                 <a href="https://www.facebook.com/premraj.joshi.142" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/the_prem.rajj" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com/PRJtweets2090" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.youtube.com/channel/S7E1amcCGUU" target="_blank"><i class="fab fa-youtube"></i></a>
-            </div>
-
-            <div class="datetime-container">
-                <div id="nepali-date">2083-12-14</div>
-                <div id="nepali-time">00:00:00</div>
             </div>
         </nav>
     </header>
 
-    <div class="chat-bot" onclick="toggleContact()">
-        <i class="fas fa-comment-dots"></i>
-        <span>Hello!</span>
-    </div>
-
-    <div id="contactPanel">
-        <h3>Contact</h3>
-        <p>+977 9868827191</p>
-        <p>@the_prem.rajj</p>
-        <button onclick="toggleContact()" style="width:100%; padding:10px; background:#007bff; color:white; border:none; border-radius:5px;">Close</button>
-    </div>
-
     <section id="home">
-        <h1>Welcome</h1>
-        <p>To the Professional Portfolio of Dr. Joshi</p>
-    </section>
-
-    <section id="about">
-        <div class="about-content">
-            <h2>About Me</h2>
-            <p>Dr. Prem Raj Joshi - Dedicated Medical Professional providing excellence in healthcare and medical consultation.</p>
-            <button class="read-more-btn" style="padding:10px 20px; background:#007bff; color:white; border:none; border-radius:20px;">Read more</button>
+        <div class="slider-container">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
         </div>
-        <div class="about-photo-circle">
-            <img src="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg" alt="Dr. Prem Raj Joshi">
+        <div class="home-content">
+            <h1>Welcome</h1>
+            <p style="font-size: 1.5rem;">To the official Website of Dr. Prem Joshi</p>
         </div>
     </section>
 
     <section id="education">
-        <h2 style="margin-bottom: 30px;">Educational Journey</h2>
-        <div class="empty-grid">
-            <div class="empty-card"><i class="fas fa-graduation-cap" style="font-size: 40px; color:#999;"></i></div>
-            <div class="empty-card"><i class="fas fa-university" style="font-size: 40px; color:#999;"></i></div>
-            <div class="empty-card"><i class="fas fa-award" style="font-size: 40px; color:#999;"></i></div>
+        <h2 style="margin-bottom: 40px;">Educational Journey</h2>
+        <div class="content-grid">
+            <a href="education/degree.pdf" class="card item-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Medical Degree</h3>
+                <p>BAMS Credentials</p>
+            </a>
+            <a href="education/iom_info.pdf" class="card item-card">
+                <i class="fas fa-university"></i>
+                <h3>IOM, TU</h3>
+                <p>Institutional Affiliations</p>
+            </a>
         </div>
     </section>
 
-    <section id="work">
-        <h2 style="margin-bottom: 30px;">Work Experience</h2>
-        <div class="empty-grid">
-            <div class="empty-card"><i class="fas fa-hospital" style="font-size: 40px; color:#999;"></i></div>
-            <div class="empty-card"><i class="fas fa-stethoscope" style="font-size: 40px; color:#999;"></i></div>
+    <section id="work" style="background: #fdfdfd;">
+        <h2 style="margin-bottom: 40px;">Experience</h2>
+        <div class="content-grid">
+            <a href="experinces/clinical_work.html" class="card item-card">
+                <i class="fas fa-hospital"></i>
+                <h3>Clinical Practice</h3>
+                <p>Professional Roles</p>
+            </a>
+            <a href="experinces/research.html" class="card item-card">
+                <i class="fas fa-microscope"></i>
+                <h3>Research</h3>
+                <p>Medical Studies</p>
+            </a>
         </div>
     </section>
 
-    <section id="feeds-footer">
-        <div class="feeds-container">
-            <div class="feed-item">
-                <div style="background:#eee; padding:10px; font-weight:bold; text-align:center;">YouTube</div>
-                <iframe width="100%" height="400" src="https://www.youtube.com/embed/S7E1amcCGUU" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="feed-item">
-                <div style="background:#eee; padding:10px; font-weight:bold; text-align:center;">Facebook</div>
-                <div class="fb-page" data-href="https://www.facebook.com/premraj.joshi.142" data-tabs="timeline" data-width="380" data-height="400" data-small-header="true" data-adapt-container-width="true"></div>
-            </div>
+    <section id="gallery">
+        <h2 style="margin-bottom: 40px;">Gallery</h2>
+        <div class="content-grid">
+            <a href="gallery/photos.html" class="card item-card">
+                <i class="fas fa-images"></i>
+                <h3>Browse Gallery</h3>
+                <p>View Photos from Folder</p>
+            </a>
         </div>
 
-        <div style="background: #111; color: white; width: 100%; padding: 20px; text-align: center; margin-top:50px;">
-            <p>© 2026 Prem Raj Joshi | 9868827191</p>
-        </div>
+        <footer class="footer-static">
+            <p>© 2026 Prem Raj Joshi | Contact: 9868827191</p>
+            <p>BAMS, IOM, TU - Medical Practitioner</p>
+        </footer>
     </section>
 
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
-    <script>
-        function closeModal() { document.getElementById("noticeModal").style.display = "none"; }
-        function toggleContact() {
-            const panel = document.getElementById("contactPanel");
-            panel.style.display = (panel.style.display === "block") ? "none" : "block";
-        }
-
-        let currentYear = 2083;
-        let currentMonth = 12;
-        let currentDay = 14;
-
-        function updateClock() {
-            const now = new Date();
-            const options = { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, hourCycle: 'h12' };
-            
-            const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
-            document.getElementById('nepali-time').textContent = timeString;
-
-            if (timeString === "12:00:00 AM") {
-                currentDay++;
-                if (currentDay > 30) { currentDay = 1; currentMonth++; }
-                if (currentMonth > 12) { currentMonth = 1; currentYear++; }
-                
-                document.getElementById('nepali-date').textContent = 
-                    `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(currentDay).padStart(2, '0')}`;
-            }
-        }
-        
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
 </body>
 </html>
