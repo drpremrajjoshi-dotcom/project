@@ -85,7 +85,7 @@
             align-items: center; cursor: pointer; z-index: 999;
         }
 
-        /* --- SECTION 1: HOME (Welcome with fsu.jpg) --- */
+        /* --- SECTION 1: HOME --- */
         #home { 
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                         url('images/fsu.jpg') no-repeat center center; 
@@ -143,8 +143,8 @@
     <div class="modal-overlay" id="noticeModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Hello Dear</h2>
-            <p>Site under construction.Thankyou for your patience. Keep Updated in</p>
+            <h2>Notice</h2>
+            <p>Site under construction.</p>
             <p><a href="https://www.instagram.com/the_prem.rajj" target="_blank" style="color:red; font-weight:bold;">Instagram</a></p>
         </div>
     </div>
@@ -152,7 +152,7 @@
     <header class="header">
         <div class="left">
             <img src="logo.jpg" class="logo-img" alt="Logo">
-            <img src="https://www.crossed-flag-pins.com/animated-flag-gif/flags/Nepal.gif" class="flag-gif">
+            <img src="images/nepal.gif" class="flag-gif">
             <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
         </div>
 
@@ -260,7 +260,6 @@
             const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
             document.getElementById('nepali-time').textContent = timeString;
 
-            // Changes date at 12:00:00 AM
             if (timeString === "12:00:00 AM") {
                 currentDay++;
                 if (currentDay > 30) { currentDay = 1; currentMonth++; }
