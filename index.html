@@ -61,7 +61,6 @@
         .left { display: flex; align-items: center; }
         .logo-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
         
-        /* Updated Flag Style */
         .flag-gif { width: 40px; height: 40px; margin-left: 15px; object-fit: contain; }
         
         .name-container { display: flex; flex-direction: column; margin-left: 10px; }
@@ -91,14 +90,26 @@
             align-items: center; cursor: pointer; z-index: 999;
         }
 
-        /* --- SECTION 1: HOME --- */
+        /* --- SECTION 1: HOME SLIDER --- */
         #home { 
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('images/fsu.jpg') no-repeat center center; 
-            background-size: cover;
+            position: relative;
+            background: #000;
             color: white; 
             text-align: center;
+            overflow: hidden;
         }
+        .slide-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            filter: brightness(0.5);
+        }
+        .slide-bg.active { opacity: 1; }
+        
+        #home h1, #home p { position: relative; z-index: 2; }
         #home h1 { font-size: 3rem; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
         #home p { font-size: 1.2rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); }
 
@@ -108,16 +119,18 @@
         .about-photo-circle { width: 280px; height: 280px; border-radius: 50%; border: 6px solid #007bff; overflow: hidden; }
         .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        .empty-grid { 
+        .image-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
             gap: 20px; width: 90%; max-width: 1000px;
         }
-        .empty-card { 
-            height: 300px; background: rgba(255, 255, 255, 0.6); 
-            border: 2px dashed #999; border-radius: 12px;
+        .image-card { 
+            height: 300px; background: #eee; 
+            border-radius: 12px; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .image-card img { width: 100%; height: 100%; object-fit: cover; }
 
         .feeds-container { 
             display: grid; 
@@ -158,12 +171,10 @@
     <header class="header">
         <div class="left">
             <img src="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg" class="logo-img" alt="Logo">
-            
             <div class="name-container">
                 <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
                 <span class="credentials">BAMS, IOM, TU</span>
             </div>
-
             <img src="images/Flag_of_Nepal.gif" class="flag-gif">
         </div>
 
@@ -172,7 +183,7 @@
             <a href="#about">About</a>
             <a href="#education">Journey</a>
             <a href="#work">Experience</a>
-            <a href="#blog">Blog</a>
+            <a href="#gallery">Gallery</a>
             <a href="#feeds-footer">Contact</a>
             
             <div class="header-socials">
@@ -202,6 +213,10 @@
     </div>
 
     <section id="home">
+        <div class="slide-bg active" style="background-image: url('slider images/1.jpg');"></div>
+        <div class="slide-bg" style="background-image: url('slider images/2.jpg');"></div>
+        <div class="slide-bg" style="background-image: url('slider images/3.jpg');"></div>
+        
         <h1>Welcome</h1>
         <p>To the Professional Portfolio of Dr. Joshi</p>
     </section>
@@ -219,18 +234,28 @@
 
     <section id="education">
         <h2 style="margin-bottom: 30px;">Educational Journey</h2>
-        <div class="empty-grid">
-            <div class="empty-card"><i class="fas fa-graduation-cap" style="font-size: 40px; color:#999;"></i></div>
-            <div class="empty-card"><i class="fas fa-university" style="font-size: 40px; color:#999;"></i></div>
-            <div class="empty-card"><i class="fas fa-award" style="font-size: 40px; color:#999;"></i></div>
+        <div class="image-grid">
+            <div class="image-card"><img src="education/1.jpg" alt="Education 1"></div>
+            <div class="image-card"><img src="education/2.jpg" alt="Education 2"></div>
+            <div class="image-card"><img src="education/3.jpg" alt="Education 3"></div>
         </div>
     </section>
 
     <section id="work">
         <h2 style="margin-bottom: 30px;">Work Experience</h2>
-        <div class="empty-grid">
-            <div class="empty-card"><i class="fas fa-hospital" style="font-size: 40px; color:#999;"></i></div>
-            <div class="empty-card"><i class="fas fa-stethoscope" style="font-size: 40px; color:#999;"></i></div>
+        <div class="image-grid">
+            <div class="image-card"><img src="experince/1.jpg" alt="Experience 1"></div>
+            <div class="image-card"><img src="experince/2.jpg" alt="Experience 2"></div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 style="margin-bottom: 30px;">Gallery</h2>
+        <div class="image-grid">
+            <div class="image-card"><img src="gallery/1.jpg" alt="Gallery 1"></div>
+            <div class="image-card"><img src="gallery/2.jpg" alt="Gallery 2"></div>
+            <div class="image-card"><img src="gallery/3.jpg" alt="Gallery 3"></div>
+            <div class="image-card"><img src="gallery/4.jpg" alt="Gallery 4"></div>
         </div>
     </section>
 
@@ -258,6 +283,16 @@
             const panel = document.getElementById("contactPanel");
             panel.style.display = (panel.style.display === "block") ? "none" : "block";
         }
+
+        // Background Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-bg');
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 5000); // Change image every 5 seconds
 
         let currentYear = 2083;
         let currentMonth = 12;
