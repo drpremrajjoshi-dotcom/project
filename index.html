@@ -85,7 +85,7 @@
             align-items: center; cursor: pointer; z-index: 999;
         }
 
-        /* --- SECTION 1: HOME --- */
+        /* --- SECTION 1: HOME (Welcome with fsu.jpg) --- */
         #home { 
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                         url('images/fsu.jpg') no-repeat center center; 
@@ -152,7 +152,7 @@
     <header class="header">
         <div class="left">
             <img src="logo.jpg" class="logo-img" alt="Logo">
-            <img src="images/nepal.gif" class="flag-gif">
+            <img src="images/Flag_of_Nepal.gif" class="flag-gif">
             <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
         </div>
 
@@ -260,6 +260,7 @@
             const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
             document.getElementById('nepali-time').textContent = timeString;
 
+            // Changes date at 12:00:00 AM
             if (timeString === "12:00:00 AM") {
                 currentDay++;
                 if (currentDay > 30) { currentDay = 1; currentMonth++; }
