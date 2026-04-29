@@ -14,3 +14,5 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PREMWEBSITE }}
           channelId: live
           projectId: premwebsite
+          # This line tells Firebase NOT to look for a build script
+          entryPoint: .
