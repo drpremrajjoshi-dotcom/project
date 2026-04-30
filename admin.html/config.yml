@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: master # Ensure this matches your branch name
+
+media_folder: "assets/uploads" # Images will be saved here
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "content"
+    label: "Website Content"
+    files:
+      - label: "Homepage Data"
+        name: "data"
+        file: "data.json" # Targets your existing data file
+        fields:
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "Biography", name: "aboutP", widget: "markdown" }
+          - label: "Education"
+            name: "education"
+            widget: "list"
+            fields:
+              - { label: "Degree Title", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
