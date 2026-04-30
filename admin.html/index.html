@@ -1,17 +1,50 @@
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      // FORCE TRIGGER: If there is an invite token in the URL, open the modal manually
-      if (!user && window.location.hash.includes("invite_token")) {
-        netlifyIdentity.open("signup"); 
-      }
-      
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Prem Raj Joshi</title>
+    
+    <!-- LOAD SCRIPT FIRST -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+    <div style="text-align: center; padding-top: 100px; font-family: sans-serif;">
+        <h1>Dr. Prem Raj Joshi</h1>
+        <p>Admin System Initializing...</p>
+        <button id="loginBtn" style="padding: 10px 20px; cursor: pointer;">Open Login Panel</button>
+    </div>
+
+    <script>
+        // Check if the script loaded every 500ms
+        const checkScript = setInterval(() => {
+            if (window.netlifyIdentity) {
+                console.log("Netlify Identity Loaded");
+                clearInterval(checkScript);
+                
+                // Automatically open if an invite token is present
+                if (window.location.hash.includes("invite_token")) {
+                    netlifyIdentity.open("signup");
+                }
+            }
+        }, 500);
+
+        // Manual button backup
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            if (window.netlifyIdentity) {
+                netlifyIdentity.open();
+            } else {
+                alert("Identity script still loading... please wait 5 seconds and try again.");
+            }
         });
-      }
-    });
-  }
-</script>
+
+        // Redirect after login
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+            });
+        }
+    </script>
+</body>
+</html>
