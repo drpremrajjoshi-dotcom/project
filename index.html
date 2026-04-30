@@ -1,205 +1,387 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dr. Prem Raj Joshi</title>
+
     <!-- Netlify Identity Widget -->
+
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
     
-    <link rel="icon" type="image/jpeg" href="images/logo.jpeg">
+
+    <link rel="icon" type="image/jpeg" href="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+
     <style>
-        /* --- RESTORED ORIGINAL CORE STYLES --- */
+
+        /* --- CORE STYLES --- */
+
         * { box-sizing: border-box; }
-        html, body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        body { background-color: #f4f7f6; color: #333; line-height: 1.6; }
-        
-        section { min-height: 100vh; padding: 100px 10% 60px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
-        /* --- RESTORED HEADER & NAV --- */
-        .header { position: fixed; top: 0; width: 100%; background: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; box-shadow: 0 2px 15px rgba(0,0,0,0.1); z-index: 1000; }
+        html, body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; overflow-x: hidden; height: 100%; }
+
+        body { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; }
+
+        section { min-height: 100vh; width: 100%; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 80px 20px; }
+
+
+
+        /* --- HEADER --- */
+
+        .header { position: fixed; top: 0; width: 100%; background: white; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 10px 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000; }
+
         .left { display: flex; align-items: center; }
-        .logo-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #007bff; }
-        .name-container { margin-left: 15px; }
-        .name-main { font-size: 1.2rem; font-weight: 800; color: #222; text-decoration: none; display: block; }
-        .credentials { font-size: 0.85rem; color: #007bff; font-weight: 600; }
-        
-        .nav { display: flex; align-items: center; }
-        .nav a { margin-left: 20px; text-decoration: none; color: #444; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-        .nav a:hover { color: #007bff; }
 
-        /* --- RESTORED SLIDER --- */
-        #home { padding: 0; height: 100vh; background: #000; }
-        .slider-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
-        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; }
-        .slide.active { opacity: 1; }
-        .slide h1 { font-size: 3.5rem; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .slide p { font-size: 1.2rem; background: rgba(0,0,0,0.4); padding: 5px 20px; border-radius: 20px; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 
-        /* --- RESTORED ABOUT SECTION --- */
-        #about { background: #fff; flex-direction: row; flex-wrap: wrap; gap: 40px; text-align: left; }
-        .about-text { flex: 1; min-width: 300px; }
-        .about-text h2 { color: #007bff; font-size: 2.5rem; margin-bottom: 20px; }
-        .about-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
-        .image-circle { width: 350px; height: 350px; border-radius: 50%; border: 10px solid #e9ecef; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .image-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .flag-gif { width: 40px; height: 40px; margin-left: 15px; object-fit: contain; }
 
-        /* --- RESTORED CARDS --- */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; margin-top: 40px; }
-        .card { background: white; padding: 40px 20px; border-radius: 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.4s; border-top: 5px solid #007bff; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .card img { width: 70px; height: 70px; margin-bottom: 20px; }
-        .card h3 { margin-bottom: 15px; color: #222; }
+        .name-container { display: flex; flex-direction: column; margin-left: 10px; }
 
-        /* --- FOOTER --- */
-        footer { background: #222; color: white; padding: 40px 0; text-align: center; width: 100%; }
+        .name-main { font-size: 16px; font-weight: bold; text-decoration: none; color: #222; line-height: 1.2; }
 
-        /* Mobile Fixes */
-        @media (max-width: 768px) {
-            #about { flex-direction: column-reverse; text-align: center; }
-            .slide h1 { font-size: 2rem; }
-            .header { flex-direction: column; padding: 15px; }
-            .nav { margin-top: 15px; }
-        }
+        .credentials { font-size: 12px; color: #1877F2; font-weight: normal; margin-top: 2px; }
+
+        .nav { display: flex; align-items: center; flex-wrap: wrap; }
+
+        .nav a { margin: 0 8px; text-decoration: none; color: #333; font-weight: 500; font-size: 14px; transition: 0.3s; }
+
+        .header-socials { display: flex; gap: 12px; margin-left: 15px; border-left: 1px solid #ddd; padding-left: 15px; }
+
+        .header-socials a { font-size: 18px; }
+
+        .datetime-container { margin-left: 15px; font-size: 11px; color: #004a99; font-weight: bold; text-align: right; }
+
+
+
+        /* --- SLIDER --- */
+
+        #home { padding: 0; overflow: hidden; background: #000; }
+
+        .slider-container { position: relative; width: 100%; height: 100vh; }
+
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+
+        .slide.active { opacity: 1; z-index: 1; }
+
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px; cursor: pointer; z-index: 10; border-radius: 50%; }
+
+        .next-btn { right: 20px; } .prev-btn { left: 20px; }
+
+
+
+        /* --- CARDS & GRID --- */
+
+        .dynamic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 90%; max-width: 1200px; margin-top: 20px; }
+
+        .info-card { background: #f9f9f9; padding: 30px; border-radius: 15px; border-bottom: 5px solid #007bff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
+
+        .info-card:hover { transform: translateY(-10px); }
+
+        .info-card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 15px; }
+
+
+
+        #about { background: #fff; flex-direction: row; gap: 50px; }
+
+        .about-photo-circle { width: 300px; height: 300px; border-radius: 50%; border: 8px solid #007bff; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+
+
+        .footer-black-bar { background: #111; color: white; width: 100%; padding: 40px; text-align: center; }
+
     </style>
+
 </head>
+
 <body>
 
+
+
     <header class="header">
+
         <div class="left">
+
             <img src="images/logo.jpeg" id="nav-logo" class="logo-img" alt="Logo">
+
             <div class="name-container">
+
                 <a href="#" class="name-main">Dr. Prem Raj Joshi</a>
+
                 <span class="credentials">BAMS, IOM, TU</span>
+
             </div>
+
+            <img src="images/Flag_of_Nepal.gif" class="flag-gif">
+
         </div>
+
         <nav class="nav">
+
             <a href="#home">Home</a>
+
             <a href="#about">About</a>
-            <a href="#education">Education</a>
+
+            <a href="#education">Journey</a>
+
             <a href="#work">Experience</a>
-            <div class="datetime-container" style="margin-left: 20px; font-size: 12px; color: #007bff; font-weight: bold;">
-                <span id="nepali-time"></span>
+
+            <a href="#blog">Blog</a>
+
+            <div class="header-socials">
+
+                <a href="https://www.facebook.com/prj.2090"><i class="fab fa-facebook"></i></a>
+
+                <a href="https://www.youtube.com/@premrajjoshi11"><i class="fab fa-youtube"></i></a>
+
             </div>
+
+            <div class="datetime-container">
+
+                <div id="nepali-date">2083-01-15</div>
+
+                <div id="nepali-time">00:00:00</div>
+
+            </div>
+
         </nav>
+
     </header>
 
-    <!-- SLIDER SECTION -->
+
+
+    <!-- 1. DYNAMIC SLIDER -->
+
     <section id="home">
+
         <div class="slider-container" id="main-slider">
-            <!-- Dynamic Slides Injected Here -->
+
+            <!-- Slides injected by JS -->
+
+            <button class="slider-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+
+            <button class="slider-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+
         </div>
+
     </section>
 
-    <!-- ABOUT SECTION -->
+
+
+    <!-- 2. DYNAMIC ABOUT ME -->
+
     <section id="about">
-        <div class="about-text">
+
+        <div class="about-content" style="max-width: 600px;">
+
             <h2>About Me</h2>
-            <p id="bio-text">Loading...</p>
+
+            <p id="bio-text">Loading biography...</p>
+
         </div>
-        <div class="about-image">
-            <div class="image-circle">
-                <img src="" id="bio-image" alt="Profile">
-            </div>
+
+        <div class="about-photo-circle">
+
+            <img src="" id="bio-image" alt="Dr. Prem">
+
         </div>
+
     </section>
 
-    <!-- EDUCATION SECTION -->
-    <section id="education" style="background: #f8f9fa;">
-        <h2 style="font-size: 2.5rem;">Educational Journey</h2>
-        <div class="grid-container" id="education-grid">
-            <!-- Dynamic Cards Injected Here -->
-        </div>
+
+
+    <!-- 3. DYNAMIC EDUCATION -->
+
+    <section id="education">
+
+        <h2>Educational Journey</h2>
+
+        <div class="dynamic-grid" id="education-grid"></div>
+
     </section>
 
-    <!-- EXPERIENCE SECTION -->
+
+
+    <!-- 4. DYNAMIC EXPERIENCE -->
+
     <section id="work">
-        <h2 style="font-size: 2.5rem;">Professional Experience</h2>
-        <div class="grid-container" id="experience-grid">
-            <!-- Dynamic Cards Injected Here -->
-        </div>
+
+        <h2>Work Experience</h2>
+
+        <div class="dynamic-grid" id="experience-grid"></div>
+
     </section>
 
-    <footer>
-        <p>© 2026 Dr. Prem Raj Joshi | Designed with ❤️</p>
+
+
+    <footer class="footer-black-bar">
+
+        <p>© 2026 Prem Raj Joshi | Designed With Love By Amit❤️</p>
+
     </footer>
 
+
+
     <script>
-        // --- DYNAMIC DATA SYNC ---
+
+        // --- DATA SYNC ENGINE ---
+
         fetch('data.json')
+
             .then(res => res.json())
+
             .then(data => {
-                // 1. Logo
+
+                // Update Logo
+
                 if(data.logo) document.getElementById('nav-logo').src = data.logo;
 
-                // 2. Slider
+
+
+                // Update Slider
+
                 const slider = document.getElementById('main-slider');
+
                 if(data.slider_images) {
+
                     data.slider_images.forEach((slide, index) => {
+
                         const div = document.createElement('div');
+
                         div.className = `slide ${index === 0 ? 'active' : ''}`;
-                        div.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${slide.image}')`;
-                        div.innerHTML = `<h1>${slide.title}</h1><p>${slide.subtext}</p>`;
-                        slider.appendChild(div);
+
+                        div.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${slide.image}')`;
+
+                        div.innerHTML = `<h1>${slide.title || ''}</h1><p>${slide.subtext || ''}</p>`;
+
+                        slider.insertBefore(div, slider.firstChild);
+
                     });
-                    startSlider();
+
+                    initSlider(); // Start the timer after loading images
+
                 }
 
-                // 3. About
+
+
+                // Update About
+
                 if(data.about_section) {
+
                     document.getElementById('bio-text').innerText = data.about_section.biography;
+
                     document.getElementById('bio-image').src = data.about_section.photo;
+
                 }
 
-                // 4. Education
+
+
+                // Update Education
+
                 const eduGrid = document.getElementById('education-grid');
+
                 if(data.education) {
+
                     data.education.forEach(item => {
+
                         eduGrid.innerHTML += `
-                            <div class="card">
-                                <img src="${item.image}" alt="edu">
+
+                            <div class="info-card">
+
+                                <img src="${item.image}" alt="icon">
+
                                 <h3>${item.title}</h3>
+
                                 <p>${item.desc}</p>
+
                             </div>`;
+
                     });
+
                 }
 
-                // 5. Experience
+
+
+                // Update Experience
+
                 const expGrid = document.getElementById('experience-grid');
+
                 if(data.experience) {
+
                     data.experience.forEach(item => {
+
                         expGrid.innerHTML += `
-                            <div class="card">
-                                <img src="${item.image}" alt="work">
+
+                            <div class="info-card">
+
+                                <img src="${item.image}" alt="icon">
+
                                 <h3>${item.title}</h3>
+
                                 <p>${item.desc}</p>
+
                             </div>`;
+
                     });
+
                 }
+
             });
 
-        // --- SLIDER LOGIC ---
-        let currentIdx = 0;
-        function startSlider() {
-            setInterval(() => {
-                const slides = document.querySelectorAll('.slide');
-                if(slides.length < 2) return;
-                slides[currentIdx].classList.remove('active');
-                currentIdx = (currentIdx + 1) % slides.length;
-                slides[currentIdx].classList.add('active');
-            }, 5000);
+
+
+        // --- SLIDER CONTROLS ---
+
+        let slideIndex = 0;
+
+        function initSlider() {
+
+            setInterval(() => changeSlide(1), 8000);
+
         }
 
+        function changeSlide(n) {
+
+            const slides = document.querySelectorAll(".slide");
+
+            if(slides.length === 0) return;
+
+            slides[slideIndex].classList.remove("active");
+
+            slideIndex = (slideIndex + n + slides.length) % slides.length;
+
+            slides[slideIndex].classList.add("active");
+
+        }
+
+
+
         // --- CLOCK ---
+
         setInterval(() => {
-            const time = new Intl.DateTimeFormat('en-US', { 
-                timeZone: 'Asia/Kathmandu', 
-                hour: '2-digit', minute: '2-digit', second: '2-digit' 
-            }).format(new Date());
-            document.getElementById('nepali-time').textContent = time + " (Kathmandu)";
+
+            const now = new Date();
+
+            const time = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now);
+
+            document.getElementById('nepali-time').textContent = time;
+
         }, 1000);
+
     </script>
+
 </body>
+
 </html>
