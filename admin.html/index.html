@@ -1,44 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Prem Raj Joshi</title>
-    
-    <!-- 1. Netlify Identity Widget (Crucial for the invite link to work) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <style>
-        /* Your existing CSS styling stays here */
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; text-align: center; padding-top: 50px; }
-        .hero { background: white; padding: 50px; border-radius: 15px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { color: #2b67ff; }
-    </style>
-</head>
-<body>
-
-    <div class="hero">
-        <h1>Dr. Prem Raj Joshi</h1>
-        <p>Medical Professional & Researcher</p>
-        <hr>
-        <p>Welcome to my official website.</p>
-        <!-- The CMS will automatically update this content once you log in -->
-    </div>
-
-    <!-- 2. The Identity Helper Script -->
-    <script>
-      if (window.netlifyIdentity) {
-        // This opens the login/signup modal automatically when the invite link is clicked
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              // Once logged in, it sends you straight to the admin panel
-              document.location.href = "/admin/";
-            });
-          }
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      // FORCE TRIGGER: If there is an invite token in the URL, open the modal manually
+      if (!user && window.location.hash.includes("invite_token")) {
+        netlifyIdentity.open("signup"); 
+      }
+      
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
         });
       }
-    </script>
-
-</body>
-</html>
+    });
+  }
+</script>
