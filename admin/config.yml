@@ -1,27 +1,19 @@
-# 1. External Connection (Connects the CMS to your GitHub)
 backend:
   name: git-gateway
-  branch: main # Double-check if your branch is 'main' or 'master'
+  branch: main
 
-# 2. Media Settings (Fixes the 'media_folder' and 'media_library' errors)
-media_folder: "images"      # Folder in your repo where photos will be saved
-public_folder: "images"     # How the website code finds the photos
-media_library:
-  name: uploadcare          # Basic media library integration
-  config:
-    publicKey: demopublickey 
+media_folder: "images"
+public_folder: "images"
 
-# 3. Content Structure
 collections:
   - name: "homepage"
     label: "Homepage Data"
     files:
-      - file: "data.json"   # This is where your writer's bio and records are stored
+      - file: "data.json"
         label: "Main Content"
         name: "main_content"
         fields:
           - { label: "Site Logo", name: "logo", widget: "image" }
-          
           - label: "Home Slider"
             name: "slider_images"
             widget: "list"
@@ -29,26 +21,23 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Subtitle", name: "subtext", widget: "string" }
               - { label: "Background Image", name: "image", widget: "image" }
-
           - label: "About Me"
             name: "about_section"
             widget: "object"
             fields:
               - { label: "Biography", name: "biography", widget: "text" }
               - { label: "Profile Photo", name: "photo", widget: "image" }
-
-          - label: "Educational Journey"
+          - label: "Education"
             name: "education"
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "desc", widget: "string" }
-              - { label: "Icon/Image", name: "image", widget: "image" }
-
-          - label: "Professional Experience"
+              - { label: "Icon", name: "image", widget: "image" }
+          - label: "Experience"
             name: "experience"
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "desc", widget: "string" }
-              - { label: "Icon/Image", name: "image", widget: "image" }
+              - { label: "Icon", name: "image", widget: "image" }
