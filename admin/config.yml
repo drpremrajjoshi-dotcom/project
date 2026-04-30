@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   branch: master
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME # <--- ADD THIS LINE
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
@@ -12,7 +12,7 @@ collections:
     files:
       - label: "Homepage Data"
         name: "data"
-        file: "data.json"
+        file: "data.json" # This must match the filename you just created
         fields:
           - { label: "Logo", name: "logo", widget: "image" }
           - { label: "Biography", name: "aboutP", widget: "markdown" }
