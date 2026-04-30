@@ -24,21 +24,77 @@
 
     <style>
 
-        /* --- CORE STYLES --- */
+        /* --- CORE STYLES & SNAP SCROLLING --- */
 
         * { box-sizing: border-box; }
 
-        html, body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; overflow-x: hidden; height: 100%; }
+        html, body {
 
-        body { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; }
+            margin: 0;
 
-        section { min-height: 100vh; width: 100%; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 80px 20px; }
+            padding: 0;
+
+            font-family: 'Segoe UI', Arial, sans-serif;
+
+            scroll-behavior: smooth;
+
+            overflow-x: hidden;
+
+            height: 100%;
+
+        }
+
+        
+
+        body {
+
+            scroll-snap-type: y mandatory;
+
+            height: 100vh;
+
+            overflow-y: scroll;
+
+        }
 
 
 
-        /* --- HEADER --- */
+        section {
 
-        .header { position: fixed; top: 0; width: 100%; background: white; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 10px 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000; }
+            min-height: 100vh;
+
+            width: 100%;
+
+            scroll-snap-align: start;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+            padding: 80px 20px;
+
+        }
+
+
+
+        /* --- HEADER & NAV --- */
+
+        .header {
+
+            position: fixed; top: 0; width: 100%;
+
+            background: white; display: flex; flex-wrap: wrap; justify-content: space-between;
+
+            align-items: center; padding: 10px 5%;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000;
+
+        }
 
         .left { display: flex; align-items: center; }
 
@@ -52,55 +108,183 @@
 
         .credentials { font-size: 12px; color: #1877F2; font-weight: normal; margin-top: 2px; }
 
+        
+
         .nav { display: flex; align-items: center; flex-wrap: wrap; }
 
         .nav a { margin: 0 8px; text-decoration: none; color: #333; font-weight: 500; font-size: 14px; transition: 0.3s; }
 
+        .nav a:hover { color: #007bff; }
+
+        
+
         .header-socials { display: flex; gap: 12px; margin-left: 15px; border-left: 1px solid #ddd; padding-left: 15px; }
 
-        .header-socials a { font-size: 18px; }
+        .header-socials a { font-size: 18px; transition: transform 0.2s; }
 
-        .datetime-container { margin-left: 15px; font-size: 11px; color: #004a99; font-weight: bold; text-align: right; }
+        .header-socials a:hover { transform: scale(1.2); }
+
+        .fa-facebook { color: #1877F2; }
+
+        .fa-instagram { color: #E4405F; }
+
+        .fa-x-twitter { color: #000000; }
+
+        .fa-youtube { color: #FF0000; }
 
 
 
-        /* --- SLIDER --- */
+        .datetime-container { margin-left: 15px; font-size: 11px; color: #004a99; font-weight: bold; text-align: right; line-height: 1.2; }
+
+
+
+        /* --- CHATBOT --- */
+
+        .chat-bot {
+
+            position: fixed; bottom: 20px; right: 20px;
+
+            background: white; border: 2px solid #007bff;
+
+            border-radius: 50%; width: 60px; height: 60px;
+
+            display: flex; flex-direction: column; justify-content: center;
+
+            align-items: center; cursor: pointer; z-index: 999;
+
+        }
+
+
+
+        /* --- HOME SLIDER --- */
 
         #home { padding: 0; overflow: hidden; background: #000; }
 
         .slider-container { position: relative; width: 100%; height: 100vh; }
 
-        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+        .slide {
+
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+
+            opacity: 0; transition: opacity 1.5s ease-in-out;
+
+            background-size: cover; background-position: center;
+
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+
+            color: white; text-align: center;
+
+        }
 
         .slide.active { opacity: 1; z-index: 1; }
 
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px; cursor: pointer; z-index: 10; border-radius: 50%; }
+        .slide h1 { font-size: 3.5rem; margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
 
-        .next-btn { right: 20px; } .prev-btn { left: 20px; }
-
-
-
-        /* --- CARDS & GRID --- */
-
-        .dynamic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 90%; max-width: 1200px; margin-top: 20px; }
-
-        .info-card { background: #f9f9f9; padding: 30px; border-radius: 15px; border-bottom: 5px solid #007bff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
-
-        .info-card:hover { transform: translateY(-10px); }
-
-        .info-card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 15px; }
+        .slide p { font-size: 1.4rem; text-shadow: 1px 1px 8px rgba(0,0,0,0.8); }
 
 
 
-        #about { background: #fff; flex-direction: row; gap: 50px; }
+        .slider-btn {
 
-        .about-photo-circle { width: 300px; height: 300px; border-radius: 50%; border: 8px solid #007bff; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            position: absolute; top: 50%; transform: translateY(-50%);
+
+            background: rgba(255, 255, 255, 0.2); color: white; border: none;
+
+            padding: 15px 20px; cursor: pointer; font-size: 24px; z-index: 10;
+
+            border-radius: 50%; transition: 0.3s;
+
+        }
+
+        .slider-btn:hover { background: rgba(255, 255, 255, 0.5); }
+
+        .prev-btn { left: 20px; }
+
+        .next-btn { right: 20px; }
+
+
+
+        /* --- OTHER SECTIONS --- */
+
+        #about { background: #ffffff; flex-direction: row; flex-wrap: wrap; gap: 40px; }
+
+        .about-content { flex: 1; min-width: 300px; text-align: left; }
+
+        .about-photo-circle { width: 280px; height: 280px; border-radius: 50%; border: 6px solid #007bff; overflow: hidden; }
 
         .about-photo-circle img { width: 100%; height: 100%; object-fit: cover; }
 
 
 
-        .footer-black-bar { background: #111; color: white; width: 100%; padding: 40px; text-align: center; }
+        .empty-grid {
+
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 20px; width: 90%; max-width: 1000px;
+
+        }
+
+        .empty-card {
+
+            height: 300px; background: rgba(255, 255, 255, 0.6);
+
+            border: 2px dashed #999; border-radius: 12px;
+
+            display: flex; align-items: center; justify-content: center;
+
+        }
+
+
+
+        .feeds-container {
+
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 20px; width: 95%; margin: auto;
+
+        }
+
+        .feed-item { height: 450px; border: 1px solid #ddd; border-radius: 15px; background: white; overflow: hidden; }
+
+
+
+        /* --- FOOTER --- */
+
+        #feeds-footer { background: #ffffff; padding: 80px 0 0 0; justify-content: flex-end; }
+
+        .footer-black-bar {
+
+            background: #111; color: white; width: 100%;
+
+            padding: 40px 20px; text-align: center; margin-top: 50px;
+
+        }
+
+
+
+        #contactPanel {
+
+            display: none; position: fixed; bottom: 90px; right: 20px;
+
+            width: 280px; background: white; border-radius: 15px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 1001; padding: 20px;
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            .header { justify-content: center; padding: 10px; }
+
+            .nav { justify-content: center; margin-top: 10px; width: 100%; }
+
+            #about { flex-direction: column-reverse; text-align: center; }
+
+            .slide h1 { font-size: 2.2rem; }
+
+        }
 
     </style>
 
@@ -114,7 +298,7 @@
 
         <div class="left">
 
-            <img src="images/logo.jpeg" id="nav-logo" class="logo-img" alt="Logo">
+            <img src="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg" class="logo-img" alt="Logo">
 
             <div class="name-container">
 
@@ -128,6 +312,8 @@
 
         </div>
 
+
+
         <nav class="nav">
 
             <a href="#home">Home</a>
@@ -140,13 +326,23 @@
 
             <a href="#blog">Blog</a>
 
+            <a href="#feeds-footer">Contact</a>
+
+            
+
             <div class="header-socials">
 
-                <a href="https://www.facebook.com/prj.2090"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.facebook.com/prj.2090" target="_blank"><i class="fab fa-facebook"></i></a>
 
-                <a href="https://www.youtube.com/@premrajjoshi11"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/the_prem.rajj" target="_blank"><i class="fab fa-instagram"></i></a>
+
+                <a href="https://twitter.com/PRJtweets2090" target="_blank"><i class="fab fa-x-twitter"></i></a>
+
+                <a href="https://www.youtube.com/@premrajjoshi11" target="_blank"><i class="fab fa-youtube"></i></a>
 
             </div>
+
+
 
             <div class="datetime-container">
 
@@ -162,13 +358,57 @@
 
 
 
-    <!-- 1. DYNAMIC SLIDER -->
+    <div class="chat-bot" onclick="toggleContact()">
+
+        <i class="fas fa-comment-dots"></i>
+
+        <span>Hello!</span>
+
+    </div>
+
+
+
+    <div id="contactPanel">
+
+        <h3>Contact</h3>
+
+        <p>+977 9868827191</p>
+
+        <p>@the_prem.rajj</p>
+
+        <p>drpremjoshi@gmail.com</p>
+
+        <button onclick="toggleContact()" style="width:100%; padding:10px; background:#007bff; color:white; border:none; border-radius:5px;">Close</button>
+
+    </div>
+
+
 
     <section id="home">
 
-        <div class="slider-container" id="main-slider">
+        <div class="slider-container">
 
-            <!-- Slides injected by JS -->
+            <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('slider images/20231029_130125(0).jpg');">
+
+                <h1>Welcome</h1>
+
+                <p>To the Official Website of Dr. Prem</p>
+
+            </div>
+
+            <div class="slide" style="background-image: url('slider images/20240705_183033.jpg');"></div>
+
+            <div class="slide" style="background-image: url('slider images/FB_IMG_1700467595998.jpg');"></div>
+
+            <div class="slide" style="background-image: url('slider images/IMG-20240701-WA0029.jpg');"></div>
+
+            <div class="slide" style="background-image: url('slider images/IMG_2861.JPG');"></div>
+
+            <div class="slide" style="background-image: url('slider images/IMG_8050 (1).JPG');"></div>
+
+            <div class="slide" style="background-image: url('slider images/PXL_20250304_082434226.jpg');"></div>
+
+
 
             <button class="slider-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
 
@@ -180,21 +420,21 @@
 
 
 
-    <!-- 2. DYNAMIC ABOUT ME -->
-
     <section id="about">
 
-        <div class="about-content" style="max-width: 600px;">
+        <div class="about-content">
 
             <h2>About Me</h2>
 
-            <p id="bio-text">Loading biography...</p>
+            <p>Dr. Prem Raj Joshi is a dedicated Ayurvedic physician (BAMS) committed to promoting holistic health and natural healing. A graduate of Tribhuvan University (TU), Institute of Medicine (IOM), he combines traditional Ayurvedic wisdom with modern clinical understanding to provide personalized, patient-centered care.</p>
+
+            <button class="read-more-btn" style="padding:10px 20px; background:#007bff; color:white; border:none; border-radius:20px;">Read more</button>
 
         </div>
 
         <div class="about-photo-circle">
 
-            <img src="" id="bio-image" alt="Dr. Prem">
+            <img src="images/WhatsApp Image 2026-04-26 at 5.22.46 PM.jpeg" alt="Dr. Prem Raj Joshi">
 
         </div>
 
@@ -202,165 +442,107 @@
 
 
 
-    <!-- 3. DYNAMIC EDUCATION -->
-
     <section id="education">
 
-        <h2>Educational Journey</h2>
+        <h2 style="margin-bottom: 30px;">Educational Journey</h2>
 
-        <div class="dynamic-grid" id="education-grid"></div>
+        <div class="empty-grid">
+
+            <div class="empty-card"><i class="fas fa-graduation-cap" style="font-size: 40px; color:#999;"></i></div>
+
+            <div class="empty-card"><i class="fas fa-university" style="font-size: 40px; color:#999;"></i></div>
+
+            <div class="empty-card"><i class="fas fa-award" style="font-size: 40px; color:#999;"></i></div>
+
+        </div>
 
     </section>
 
 
-
-    <!-- 4. DYNAMIC EXPERIENCE -->
 
     <section id="work">
 
-        <h2>Work Experience</h2>
+        <h2 style="margin-bottom: 30px;">Work Experience</h2>
 
-        <div class="dynamic-grid" id="experience-grid"></div>
+        <div class="empty-grid">
+
+            <div class="empty-card"><i class="fas fa-hospital" style="font-size: 40px; color:#999;"></i></div>
+
+            <div class="empty-card"><i class="fas fa-stethoscope" style="font-size: 40px; color:#999;"></i></div>
+
+        </div>
 
     </section>
 
 
 
-    <footer class="footer-black-bar">
+    <section id="feeds-footer">
 
-        <p>© 2026 Prem Raj Joshi | Designed With Love By Amit❤️</p>
+        <div class="feeds-container">
 
-    </footer>
+            <div class="feed-item">
+
+                <div style="background:#eee; padding:10px; font-weight:bold; text-align:center;">YouTube</div>
+
+                <iframe width="100%" height="400" src="https://www.youtube.com/embed/S7E1amcCGUU" frameborder="0" allowfullscreen></iframe>
+
+            </div>
+
+            <div class="feed-item">
+
+                <div style="background:#eee; padding:10px; font-weight:bold; text-align:center;">Check Updates On X</div>
+
+                <a href="https://twitter.com/PRJtweets2090" target="_blank">
+
+                    <img src="images/image.png" alt="X Profile Link" style="width:100%; height:400px; object-fit:cover; display:block; cursor:pointer;">
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="footer-black-bar">
+
+            <p>Privacy Policy &nbsp;&nbsp;&nbsp; Useful Links &nbsp;&nbsp;&nbsp; Terms And conditions &nbsp;&nbsp;&nbsp; Downloads</p>
+
+            <p>© 2026 Prem Raj Joshi | 9868827191</p>
+
+            <p> Designed With Love By Amit❤️</p>
+
+        </div>
+
+    </section>
 
 
 
     <script>
 
-        // --- DATA SYNC ENGINE ---
+        function toggleContact() {
 
-        fetch('data.json')
+            const panel = document.getElementById("contactPanel");
 
-            .then(res => res.json())
-
-            .then(data => {
-
-                // Update Logo
-
-                if(data.logo) document.getElementById('nav-logo').src = data.logo;
-
-
-
-                // Update Slider
-
-                const slider = document.getElementById('main-slider');
-
-                if(data.slider_images) {
-
-                    data.slider_images.forEach((slide, index) => {
-
-                        const div = document.createElement('div');
-
-                        div.className = `slide ${index === 0 ? 'active' : ''}`;
-
-                        div.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${slide.image}')`;
-
-                        div.innerHTML = `<h1>${slide.title || ''}</h1><p>${slide.subtext || ''}</p>`;
-
-                        slider.insertBefore(div, slider.firstChild);
-
-                    });
-
-                    initSlider(); // Start the timer after loading images
-
-                }
-
-
-
-                // Update About
-
-                if(data.about_section) {
-
-                    document.getElementById('bio-text').innerText = data.about_section.biography;
-
-                    document.getElementById('bio-image').src = data.about_section.photo;
-
-                }
-
-
-
-                // Update Education
-
-                const eduGrid = document.getElementById('education-grid');
-
-                if(data.education) {
-
-                    data.education.forEach(item => {
-
-                        eduGrid.innerHTML += `
-
-                            <div class="info-card">
-
-                                <img src="${item.image}" alt="icon">
-
-                                <h3>${item.title}</h3>
-
-                                <p>${item.desc}</p>
-
-                            </div>`;
-
-                    });
-
-                }
-
-
-
-                // Update Experience
-
-                const expGrid = document.getElementById('experience-grid');
-
-                if(data.experience) {
-
-                    data.experience.forEach(item => {
-
-                        expGrid.innerHTML += `
-
-                            <div class="info-card">
-
-                                <img src="${item.image}" alt="icon">
-
-                                <h3>${item.title}</h3>
-
-                                <p>${item.desc}</p>
-
-                            </div>`;
-
-                    });
-
-                }
-
-            });
-
-
-
-        // --- SLIDER CONTROLS ---
-
-        let slideIndex = 0;
-
-        function initSlider() {
-
-            setInterval(() => changeSlide(1), 8000);
+            panel.style.display = (panel.style.display === "block") ? "none" : "block";
 
         }
 
-        function changeSlide(n) {
 
-            const slides = document.querySelectorAll(".slide");
 
-            if(slides.length === 0) return;
+        // --- SLIDER LOGIC ---
+
+        let slideIndex = 0;
+
+        const slides = document.querySelectorAll(".slide");
+
+
+
+        function showSlides(n) {
 
             slides[slideIndex].classList.remove("active");
 
-            slideIndex = (slideIndex + n + slides.length) % slides.length;
+            slideIndex = (n + slides.length) % slides.length;
 
             slides[slideIndex].classList.add("active");
 
@@ -368,20 +550,99 @@
 
 
 
-        // --- CLOCK ---
+        function changeSlide(n) {
 
-        setInterval(() => {
+            showSlides(slideIndex + n);
+
+            resetTimer();
+
+        }
+
+
+
+        let autoSlide = setInterval(() => changeSlide(1), 10000);
+
+
+
+        function resetTimer() {
+
+            clearInterval(autoSlide);
+
+            autoSlide = setInterval(() => changeSlide(1), 10000);
+
+        }
+
+
+
+        // --- CLOCK LOGIC ---
+
+        let currentYear = 2083;
+
+        let currentMonth = 1;
+
+        let currentDay = 15;
+
+
+
+        function updateClock() {
 
             const now = new Date();
 
-            const time = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now);
+            const options = { timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, hourCycle: 'h12' };
 
-            document.getElementById('nepali-time').textContent = time;
+            const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
 
-        }, 1000);
+            document.getElementById('nepali-time').textContent = timeString;
+
+
+
+            if (timeString === "12:00:00 AM") {
+
+                currentDay++;
+
+                if (currentDay > 30) { currentDay = 1; currentMonth++; }
+
+                if (currentMonth > 12) { currentMonth = 1; currentYear++; }
+
+                document.getElementById('nepali-date').textContent = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(currentDay).padStart(2, '0')}`;
+
+            }
+
+        }
+
+        
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
+
+
+
+        // Netlify Identity Login redirect
+
+        if (window.netlifyIdentity) {
+
+          window.netlifyIdentity.on("init", user => {
+
+            if (!user) {
+
+              window.netlifyIdentity.on("login", () => {
+
+                document.location.href = "/admin/";
+
+              });
+
+            }
+
+          });
+
+        }
 
     </script>
 
 </body>
 
-</html>
+</html> 
+
+
+
