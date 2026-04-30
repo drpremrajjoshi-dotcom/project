@@ -1,10 +1,21 @@
 {
-  "logo": "",
-  "aboutP": "Enter your biography here.",
+  "logo": "images/logo.jpeg",
+  "slider_images": [
+    {
+      "title": "Dr. Prem Raj Joshi",
+      "subtext": "Welcome to my official website",
+      "image": "images/slider1.jpg"
+    }
+  ],
+  "about_section": {
+    "biography": "Your biography text goes here.",
+    "photo": "images/profile.jpg"
+  },
   "education": [
     {
       "title": "BAMS",
-      "desc": "Institute of Medicine, TU"
+      "desc": "Institute of Medicine, TU",
+      "image": "images/edu-icon.png"
     }
   ]
 }
