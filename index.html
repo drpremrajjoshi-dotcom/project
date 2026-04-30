@@ -37,21 +37,6 @@
             padding: 80px 20px;
         }
 
-        /* --- NOTICE POPUP --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-        }
-        .modal-content {
-            background: linear-gradient(135deg, #ff4b2b, #2b67ff);
-            width: 90%; max-width: 400px; padding: 30px; border-radius: 15px;
-            position: relative; color: white; text-align: center;
-        }
-        .close-btn { position: absolute; top: 10px; right: 20px; font-size: 28px; cursor: pointer; }
-
         /* --- HEADER & NAV --- */
         .header {
             position: fixed; top: 0; width: 100%;
@@ -157,16 +142,6 @@
     </style>
 </head>
 <body>
-
-    <div class="modal-overlay" id="noticeModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Welcome!</h2>
-            <p>Hello, wonderful supporter! Thank you for visiting the site! Please note that it is currently under construction and not yet finalized; it will be fully live as soon as possible.</p>
-            <p>Thank you immensely for your patience and ongoing support. With heartfelt gratitude, we will post detailed reports of each project here soon!</p>
-            <p><a href="https://www.instagram.com/the_prem.rajj" target="_blank" style="color:#FFD700; font-weight:bold;">Follow on Instagram</a></p>
-        </div>
-    </div>
 
     <header class="header">
         <div class="left">
@@ -281,7 +256,6 @@
     </section>
 
     <script>
-        function closeModal() { document.getElementById("noticeModal").style.display = "none"; }
         function toggleContact() {
             const panel = document.getElementById("contactPanel");
             panel.style.display = (panel.style.display === "block") ? "none" : "block";
