@@ -1,24 +1,22 @@
-# 1. Backend Configuration (Connects to your GitHub repo)
+# 1. External Connection (Connects the CMS to your GitHub)
 backend:
   name: git-gateway
-  branch: main # or master, depending on your GitHub branch name
+  branch: main # Double-check if your branch is 'main' or 'master'
 
-# 2. Media & Public Folder (Where images are saved and accessed)
-media_folder: "images"      # Folder in your repo where images will be uploaded
-public_folder: "images"     # The path the website will use to find those images
-
-# 3. Media Library Configuration
+# 2. Media Settings (Fixes the 'media_folder' and 'media_library' errors)
+media_folder: "images"      # Folder in your repo where photos will be saved
+public_folder: "images"     # How the website code finds the photos
 media_library:
-  name: uploadcare # or leave as default if not using an external service
+  name: uploadcare          # Basic media library integration
   config:
     publicKey: demopublickey 
 
-# 4. Content Collections
+# 3. Content Structure
 collections:
   - name: "homepage"
     label: "Homepage Data"
     files:
-      - file: "data.json"
+      - file: "data.json"   # This is where your writer's bio and records are stored
         label: "Main Content"
         name: "main_content"
         fields:
