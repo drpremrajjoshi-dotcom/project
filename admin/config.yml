@@ -1,63 +1,35 @@
-backend:
-  name: git-gateway
-  branch: master
-  repo: drpremrajjoshi-dotcom/project
-
-media_folder: "images"
-public_folder: "images"
-
 collections:
-  - name: "content"
-    label: "Website Content"
+  - name: "homepage"
+    label: "Homepage Data"
     files:
-      - label: "Homepage Data"
-        name: "data"
-        file: "data.json"
+      - file: "data.json"
+        label: "Main Content"
+        name: "main_content"
         fields:
-          # 1. SLIDER IMAGES (Add/Remove/Replace)
-          - label: "Main Slider Images"
+          - { label: "Site Logo", name: "logo", widget: "image" }
+          
+          # This matches the 'slider_images' in your script
+          - label: "Home Slider"
             name: "slider_images"
             widget: "list"
-            summary: '{{fields.title}}'
             fields:
-              - { label: "Image", name: "image", widget: "image" }
-              - { label: "Slide Heading", name: "title", widget: "string", required: false }
-              - { label: "Slide Subtext", name: "subtext", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtext", widget: "string" }
+              - { label: "Background Image", name: "image", widget: "image" }
 
-          # 2. ABOUT ME (Text & Image)
-          - label: "About Me Section"
+          # This matches 'about_section'
+          - label: "About Me"
             name: "about_section"
             widget: "object"
             fields:
-              - { label: "About Photo", name: "photo", widget: "image" }
-              - { label: "Biography Text", name: "biography", widget: "markdown" }
+              - { label: "Biography", name: "biography", widget: "text" }
+              - { label: "Profile Photo", name: "photo", widget: "image" }
 
-          # 3. EDUCATIONAL JOURNEY (Dynamic Boxes)
+          # This matches 'education'
           - label: "Educational Journey"
             name: "education"
             widget: "list"
             fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "string" }
               - { label: "Icon/Image", name: "image", widget: "image" }
-              - { label: "Degree/Title", name: "title", widget: "string" }
-              - { label: "Description", name: "desc", widget: "text" }
-
-          # 4. WORK EXPERIENCE (Dynamic Boxes)
-          - label: "Work Experience"
-            name: "experience"
-            widget: "list"
-            fields:
-              - { label: "Company/Hospital Icon", name: "image", widget: "image" }
-              - { label: "Job Title", name: "title", widget: "string" }
-              - { label: "Details", name: "desc", widget: "text" }
-
-  # 5. BLOG (New Collection for Unlimited Posts)
-  - name: "blog"
-    label: "Blog Posts"
-    folder: "blog" # This will save posts in a folder named 'blog'
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Featured Image", name: "image", widget: "image" }
-      - { label: "Post Body", name: "body", widget: "markdown" }
